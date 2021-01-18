@@ -9,8 +9,6 @@ import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import pl.equipment.store.domain.product.port.shared.ProductDto;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @Getter
 @Builder
@@ -19,18 +17,13 @@ class Product {
     private String name;
 
     static class ProductFactory {
-        private static final AtomicInteger SEQUENCE = new AtomicInteger();
         @Getter
         private static final ProductFactory instance = new ProductFactory();
 
         private final ProductMapper productMapper = Mappers.getMapper(ProductMapper.class);
 
         Product createProduct(String productName){
-            return new Product(SEQUENCE.incrementAndGet(), productName);
-        }
-
-        Product toProduct(ProductDto productDto){
-            return productMapper.toProduct(productDto);
+            return new Product(0, productName);
         }
 
         ProductDto toProductDto(Product product){
@@ -40,7 +33,6 @@ class Product {
         @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
         interface ProductMapper {
             ProductDto toProductDto(Product product);
-            Product toProduct(ProductDto productDto);
         }
     }
 }

@@ -5,12 +5,15 @@ import org.springframework.stereotype.Component;
 import pl.equipment.store.domain.product.port.out.ProductRepository;
 import pl.equipment.store.domain.product.port.shared.ProductDto;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
-class InMemoryProductRepository implements ProductRepository {
+class ProductRepositoryImpl implements ProductRepository{
     private final ProductSpringRepository productSpringRepository;
 
     @Autowired
-    public InMemoryProductRepository(ProductSpringRepository productSpringRepository) {
+    public ProductRepositoryImpl(ProductSpringRepository productSpringRepository) {
         this.productSpringRepository = productSpringRepository;
     }
 
@@ -22,9 +25,12 @@ class InMemoryProductRepository implements ProductRepository {
     }
 
     @Override
-    public ProductDto load(Long productId) {
-        return ProductEntity.EntityFactory
-                .getInstance()
-                .toProductDto(productSpringRepository.getOne(productId));
+    public List<ProductDto> findProducts() {
+        return productSpringRepository.findAll()
+                .stream()
+                .map(c -> ProductEntity.EntityFactory
+                        .getInstance()
+                        .toProductDto(c))
+                .collect(Collectors.toList());
     }
 }

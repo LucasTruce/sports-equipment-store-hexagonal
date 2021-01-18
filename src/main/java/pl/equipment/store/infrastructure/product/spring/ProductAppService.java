@@ -6,7 +6,7 @@ import pl.equipment.store.domain.product.ProductFacade;
 import pl.equipment.store.domain.product.port.in.ProductService;
 
 @Service
-class ProductAppService implements ProductService {
+public class ProductAppService implements ProductService {
 
     @Delegate
     private final ProductService productService;
@@ -14,4 +14,5 @@ class ProductAppService implements ProductService {
     public ProductAppService(ProductFacade productFacade) {
         productService = productFacade.getProductService();
     }
+
 }

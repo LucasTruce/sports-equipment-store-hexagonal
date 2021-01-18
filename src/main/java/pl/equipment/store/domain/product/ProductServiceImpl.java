@@ -5,6 +5,8 @@ import pl.equipment.store.domain.product.port.in.ProductService;
 import pl.equipment.store.domain.product.port.out.ProductRepository;
 import pl.equipment.store.domain.product.port.shared.ProductDto;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
@@ -13,6 +15,11 @@ class ProductServiceImpl implements ProductService {
     public ProductDto createProduct(String productName) {
         Product product = Product.ProductFactory.getInstance().createProduct(productName);
         return productRepository.save(Product.ProductFactory.getInstance().toProductDto(product));
+    }
+
+    @Override
+    public List<ProductDto> getProducts() {
+        return productRepository.findProducts();
     }
 
 }
