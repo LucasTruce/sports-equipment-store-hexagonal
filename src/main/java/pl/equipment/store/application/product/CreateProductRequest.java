@@ -7,4 +7,5 @@ import lombok.Setter;
 @Setter
 class CreateProductRequest {
     private String name;
+
 }
