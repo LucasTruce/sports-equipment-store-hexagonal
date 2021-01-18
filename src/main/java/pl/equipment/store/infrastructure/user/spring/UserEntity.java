@@ -1,4 +1,4 @@
-package pl.equipment.store.infrastructure.user;
+package pl.equipment.store.infrastructure.user.spring;
 
 import lombok.Getter;
 import lombok.Setter;

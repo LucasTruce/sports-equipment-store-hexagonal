@@ -1,4 +1,4 @@
-package pl.equipment.store.infrastructure.user;
+package pl.equipment.store.infrastructure.user.spring;
 
 import lombok.RequiredArgsConstructor;
 import pl.equipment.store.domain.user.port.out.UserRepository;
