@@ -1,4 +1,4 @@
-package pl.equipment.store.domain.product.port.out;
+package pl.equipment.store.domain.product.port.in;
 
 import pl.equipment.store.domain.product.port.shared.ProductDto;
 

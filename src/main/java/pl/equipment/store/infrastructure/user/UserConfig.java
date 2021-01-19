@@ -2,8 +2,8 @@ package pl.equipment.store.infrastructure.user;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.equipment.store.domain.user.UserFacade;
-import pl.equipment.store.domain.user.port.in.UserPort;
+import pl.equipment.store.domain.user.UserFacadeImpl;
+import pl.equipment.store.domain.user.port.out.UserFacade;
 import pl.equipment.store.infrastructure.user.spring.UserAdapter;
 import pl.equipment.store.infrastructure.user.spring.UserSpringRepository;
 
@@ -11,8 +11,10 @@ import pl.equipment.store.infrastructure.user.spring.UserSpringRepository;
 class UserConfig {
 
     @Bean
-    UserPort userRepository(UserSpringRepository userSpringRepository){
-        return new UserFacade(new UserAdapter(userSpringRepository));
+    UserFacade userRepository(UserSpringRepository userSpringRepository){
+        return new UserFacadeImpl(new UserAdapter(userSpringRepository));
     }
+
+
 
 }

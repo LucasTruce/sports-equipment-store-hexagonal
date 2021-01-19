@@ -1,7 +1,7 @@
 package pl.equipment.store.infrastructure.user.spring;
 
 import lombok.RequiredArgsConstructor;
-import pl.equipment.store.domain.user.port.out.UserRepository;
+import pl.equipment.store.domain.user.port.in.UserRepository;
 import pl.equipment.store.domain.user.port.shared.UserDto;
 
 @RequiredArgsConstructor

@@ -1,7 +1,7 @@
 package pl.equipment.store.infrastructure.product.spring;
 
 import lombok.RequiredArgsConstructor;
-import pl.equipment.store.domain.product.port.out.ProductRepository;
+import pl.equipment.store.domain.product.port.in.ProductRepository;
 import pl.equipment.store.domain.product.port.shared.ProductDto;
 
 import java.util.List;
