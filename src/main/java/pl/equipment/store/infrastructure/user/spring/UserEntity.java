@@ -8,6 +8,7 @@ import org.mapstruct.factory.Mappers;
 import pl.equipment.store.domain.user.port.shared.UserDto;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "account")
@@ -21,6 +22,7 @@ public class UserEntity {
 
     private String username;
     private String password;
+    private LocalDateTime creationDate;
 
     static class EntityFactory {
         @Getter

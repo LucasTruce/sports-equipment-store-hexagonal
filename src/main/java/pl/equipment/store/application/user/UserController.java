@@ -1,22 +1,33 @@
 package pl.equipment.store.application.user;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import pl.equipment.store.domain.user.port.out.UserFacade;
+import org.springframework.web.bind.annotation.*;
+import pl.equipment.store.domain.user.UserFacade;
+import pl.equipment.store.domain.user.port.out.UserCommand;
+import pl.equipment.store.domain.user.port.out.UserQuery;
 import pl.equipment.store.domain.user.port.shared.UserDto;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-@RequiredArgsConstructor
 class UserController {
-    private final UserFacade userFacade;
+
+    private final UserCommand userCommand;
+    private final UserQuery userQuery;
+
+    public UserController(UserFacade userFacade) {
+        this.userCommand = userFacade.getUserCommand();
+        this.userQuery = userFacade.getUserQuery();
+    }
 
     @PostMapping
     UserDto saveUser(@RequestBody CreateUserRequest createUserRequest){
-        return userFacade.createUser(CreateUserRequest.ControllerDtoFactory.getInstance().createUserDto(createUserRequest));
+        return userCommand.createUser(CreateUserRequest.createUserDto(createUserRequest));
+    }
+
+    @GetMapping
+    List<UserDto> getAllUsers(){
+        return userQuery.findAllUsers();
     }
 
 }
