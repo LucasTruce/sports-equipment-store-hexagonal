@@ -1,19 +1,31 @@
 package pl.equipment.store.domain.user;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import pl.equipment.store.domain.user.dto.CreateUserDto;
+import pl.equipment.store.domain.user.dto.UserIdentificationDto;
 import pl.equipment.store.domain.user.port.in.UserCommandRepository;
 import pl.equipment.store.domain.user.port.in.UserQueryRepository;
 import pl.equipment.store.domain.user.port.out.UserCommand;
 import pl.equipment.store.domain.user.port.out.UserQuery;
 
+import java.util.List;
+
 @Getter
-public class UserFacade {
+@RequiredArgsConstructor
+class UserFacade implements UserCommand, UserQuery {
 
-    private final UserCommand userCommand;
-    private final UserQuery userQuery;
+    private final UserCommandRepository userCommandRepository;
+    private final UserQueryRepository userQueryRepository;
 
-    public UserFacade(UserCommandRepository userCommandRepository, UserQueryRepository userQueryRepository) {
-        this.userCommand = new UserCommandImpl(userCommandRepository);
-        this.userQuery = new UserQueryImpl(userQueryRepository);
+    @Override
+    public UserIdentificationDto createUser(CreateUserDto createUserDto) {
+        User user = User.create(createUserDto.getUsername(), createUserDto.getPassword());
+        return userCommandRepository.saveUser(UserMapper.toUserDto(user));
+    }
+
+    @Override
+    public List<UserIdentificationDto> findAllUsers() {
+        return userQueryRepository.findAll();
     }
 }

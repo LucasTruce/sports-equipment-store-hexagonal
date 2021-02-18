@@ -1,4 +1,4 @@
-package pl.equipment.store.domain.user.port.shared;
+package pl.equipment.store.domain.user.dto;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

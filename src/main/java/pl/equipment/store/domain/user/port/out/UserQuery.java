@@ -1,9 +1,9 @@
 package pl.equipment.store.domain.user.port.out;
 
-import pl.equipment.store.domain.user.port.shared.UserDto;
+import pl.equipment.store.domain.user.dto.UserIdentificationDto;
 
 import java.util.List;
 
 public interface UserQuery {
-    List<UserDto> findAllUsers();
+    List<UserIdentificationDto> findAllUsers();
 }

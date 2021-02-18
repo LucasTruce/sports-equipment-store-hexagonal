@@ -14,7 +14,7 @@ class User {
     private final String password;
     private final LocalDateTime creationDate;
 
-    static User createUser(String username, String password){
+    static User create(String username, String password){
         return new User(null, username, password, LocalDateTime.now());
     }
 }
