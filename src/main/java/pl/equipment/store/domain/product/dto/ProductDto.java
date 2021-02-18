@@ -1,4 +1,4 @@
-package pl.equipment.store.domain.product.port.shared;
+package pl.equipment.store.domain.product.dto;
 
 import lombok.Getter;
 import lombok.Setter;

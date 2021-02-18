@@ -10,9 +10,8 @@ class Product {
     private final Long id;
     private final String name;
 
-    static Product createProduct(String productName){
+    static Product create(String productName){
         return new Product(null, productName);
     }
-
 
 }

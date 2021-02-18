@@ -1,4 +1,4 @@
-package pl.equipment.store.infrastructure.product.spring;
+package pl.equipment.store.infrastructure.product;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
-import pl.equipment.store.domain.product.port.shared.ProductDto;
+import pl.equipment.store.domain.product.dto.ProductDto;
 
 import javax.persistence.*;
 
@@ -27,16 +27,13 @@ public class ProductEntity {
     private String name;
 
     static class EntityFactory {
-        @Getter
-        private static final EntityFactory instance = new EntityFactory();
+        private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
-        private final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
-
-        ProductEntity toProductEntity(ProductDto productDto){
+        static ProductEntity toProductEntity(ProductDto productDto){
             return entityMapper.toProductEntity(productDto);
         }
 
-        ProductDto toProductDto(ProductEntity productEntity){
+        static ProductDto toProductDto(ProductEntity productEntity){
             return entityMapper.toProductDto(productEntity);
         }
 
