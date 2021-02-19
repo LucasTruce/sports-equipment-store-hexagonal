@@ -17,8 +17,8 @@ class ProductController {
     private final ProductQuery productQuery;
 
     @PostMapping
-    ProductDto addProduct(@RequestBody CreateProductRequest createProductRequest){
-        return productCommand.createProduct(createProductRequest.getName());
+    ProductDto addProduct(@RequestBody ProductDto productDto){
+        return productCommand.createProduct(productDto);
     }
 
     @GetMapping

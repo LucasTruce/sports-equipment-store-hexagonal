@@ -17,8 +17,13 @@ class ProductFacade implements ProductCommand, ProductQuery {
     private final ProductQueryRepository productQueryRepository;
 
     @Override
-    public ProductDto createProduct(String name) {
-        Product product = Product.create(name);
+    public ProductDto createProduct(ProductDto productDto) {
+        Product product = Product.create(productDto.getName(),
+                productDto.getDescription(),
+                productDto.getUnitPrice(),
+                productDto.getUnitsInStock(),
+                productDto.getImageUrl(),
+                productDto.isActive());
         return productCommandRepository.save(ProductMapper.toProductDto(product));
     }
 

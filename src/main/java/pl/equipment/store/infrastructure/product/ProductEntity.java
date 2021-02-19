@@ -23,8 +23,12 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
     private String name;
+    private String description;
+    private double unitPrice;
+    private int unitsInStock;
+    private String imageUrl;
+    private boolean active;
 
     static class EntityFactory {
         private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);

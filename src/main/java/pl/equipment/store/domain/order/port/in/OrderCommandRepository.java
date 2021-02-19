@@ -1,7 +1,8 @@
 package pl.equipment.store.domain.order.port.in;
 
-import pl.equipment.store.domain.order.dto.OrderDto;
+import pl.equipment.store.domain.order.dto.CreateOrderDto;
+import pl.equipment.store.domain.order.dto.ResponseOrderDto;
 
 public interface OrderCommandRepository {
-    OrderDto saveOrder(OrderDto orderDto);
+    ResponseOrderDto saveOrder(CreateOrderDto createOrderDto);
 }

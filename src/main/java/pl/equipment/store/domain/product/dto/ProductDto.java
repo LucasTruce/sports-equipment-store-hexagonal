@@ -1,12 +1,17 @@
 package pl.equipment.store.domain.product.dto;
 
 import lombok.Getter;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Getter
-@Setter
 public class ProductDto {
-    private Long id;
-    private String name;
+    private final Long id;
+    private final String name;
+    private final String description;
+    private final double unitPrice;
+    private final int unitsInStock;
+    private final String imageUrl;
+    private final boolean active;
 
 }

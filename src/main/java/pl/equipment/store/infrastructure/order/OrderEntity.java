@@ -3,12 +3,14 @@ package pl.equipment.store.infrastructure.order;
 import lombok.Getter;
 import lombok.Setter;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
-import pl.equipment.store.domain.order.dto.OrderDto;
+import pl.equipment.store.domain.order.dto.CreateOrderDto;
+import pl.equipment.store.domain.order.dto.ResponseOrderDto;
+import pl.equipment.store.infrastructure.user.UserEntity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user_order")
@@ -21,23 +23,28 @@ public class OrderEntity {
     private Long id;
 
     private String status;
-    private LocalDateTime date;
+    private double totalPrice;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
     static class EntityFactory {
         private static final IEntityMapper entityMapper = Mappers.getMapper(IEntityMapper.class);
 
-        static OrderEntity toOrderEntity(OrderDto orderDto){
-            return entityMapper.toOrderEntity(orderDto);
+        static OrderEntity toOrderEntity(CreateOrderDto createOrderDto){
+            return entityMapper.toOrderEntity(createOrderDto);
         }
 
-        static OrderDto toOrderDto(OrderEntity orderEntity){
-            return entityMapper.toOrderDto(orderEntity);
+        static ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity){
+            return entityMapper.toResponseOrderDto(orderEntity);
         }
 
         @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
         interface IEntityMapper {
-            OrderDto toOrderDto(OrderEntity orderEntity);
-            OrderEntity toOrderEntity(OrderDto orderDto);
+            ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity);
+            @Mapping(target = "userEntity", ignore = true)
+            OrderEntity toOrderEntity(CreateOrderDto createOrderDto);
         }
     }
 }

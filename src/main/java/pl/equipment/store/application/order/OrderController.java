@@ -2,7 +2,8 @@ package pl.equipment.store.application.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.equipment.store.domain.order.dto.OrderDto;
+import pl.equipment.store.domain.order.dto.CreateOrderDto;
+import pl.equipment.store.domain.order.dto.ResponseOrderDto;
 import pl.equipment.store.domain.order.port.out.OrderCommand;
 import pl.equipment.store.domain.order.port.out.OrderQuery;
 
@@ -16,12 +17,12 @@ class OrderController {
     private final OrderQuery orderQuery;
 
     @PostMapping
-    OrderDto saveOrder(@RequestBody OrderDto orderDto){
-        return orderCommand.createOrder(orderDto.getStatus());
+    ResponseOrderDto saveOrder(@RequestBody CreateOrderDto createOrderDto){
+        return orderCommand.createOrder(createOrderDto);
     }
 
     @GetMapping
-    List<OrderDto> getAllOrders(){
+    List<ResponseOrderDto> getAllOrders(){
         return orderQuery.findAllOrders();
     }
 }
