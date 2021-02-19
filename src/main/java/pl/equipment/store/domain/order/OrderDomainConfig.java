@@ -9,7 +9,12 @@ import pl.equipment.store.domain.order.port.in.OrderQueryRepository;
 class OrderDomainConfig {
 
     @Bean
-    OrderFacade orderFacade(OrderCommandRepository orderCommandRepository, OrderQueryRepository orderQueryRepository){
-        return new OrderFacade(orderCommandRepository, orderQueryRepository);
+    OrderCommandFacade orderCommandFacade(OrderCommandRepository orderCommandRepository){
+        return new OrderCommandFacade(orderCommandRepository);
+    }
+
+    @Bean
+    OrderQueryFacade orderQueryFacade(OrderQueryRepository orderQueryRepository){
+        return new OrderQueryFacade(orderQueryRepository);
     }
 }
