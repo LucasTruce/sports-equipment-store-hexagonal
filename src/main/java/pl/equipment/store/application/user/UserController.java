@@ -6,10 +6,11 @@ import pl.equipment.store.domain.user.dto.UserIdentificationDto;
 import pl.equipment.store.domain.user.port.out.UserCommand;
 import pl.equipment.store.domain.user.port.out.UserQuery;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping(value = "users")
 @RequiredArgsConstructor
 class UserController {
 
@@ -17,7 +18,7 @@ class UserController {
     private final UserQuery userQuery;
 
     @PostMapping
-    UserIdentificationDto saveUser(@RequestBody CreateUserRequest createUserRequest){
+    UserIdentificationDto saveUser(@RequestBody @Valid CreateUserRequest createUserRequest){
         return userCommand.createUser(CreateUserRequest.toCreateUserDto(createUserRequest));
     }
 

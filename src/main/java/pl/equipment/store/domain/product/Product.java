@@ -15,8 +15,8 @@ class Product {
     private final String imageUrl;
     private final boolean active;
 
-    static Product create(String productName, String description, double unitPrice, int unitsInStock, String imageUrl, boolean active){
-        return new Product(null, productName, description, unitPrice, unitsInStock, imageUrl, active);
+    static Product create(String productName, String description, double unitPrice, int unitsInStock){
+        return new Product(null, productName, description, unitPrice, unitsInStock, "", true);
     }
 
 }

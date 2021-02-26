@@ -1,7 +1,7 @@
 package pl.equipment.store.domain.product.port.in;
 
-import pl.equipment.store.domain.product.dto.ProductDto;
+import pl.equipment.store.domain.product.dto.ProductResponseDto;
 
 public interface ProductCommandRepository {
-    ProductDto save(ProductDto productDto);
+    ProductResponseDto save(ProductResponseDto productResponseDto);
 }

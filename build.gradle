@@ -23,15 +23,21 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
+
+    // Lombok
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // MapStruct
     implementation 'org.mapstruct:mapstruct:1.4.1.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
-    testAnnotationProcessor 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
+    // Swagger
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.4'
 }
 
 test {

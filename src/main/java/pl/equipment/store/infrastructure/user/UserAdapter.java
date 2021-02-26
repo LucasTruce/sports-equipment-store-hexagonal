@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
-public class UserAdapter implements UserCommandRepository, UserQueryRepository {
+class UserAdapter implements UserCommandRepository, UserQueryRepository {
 
     private final UserSpringRepository userSpringRepository;
 

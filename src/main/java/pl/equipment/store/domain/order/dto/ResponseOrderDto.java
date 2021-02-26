@@ -9,4 +9,5 @@ public class ResponseOrderDto {
     private final Long id;
     private final String status;
     private final double totalPrice;
+    private final Long userId;
 }

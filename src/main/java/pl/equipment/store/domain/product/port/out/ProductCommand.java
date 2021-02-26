@@ -1,7 +1,8 @@
 package pl.equipment.store.domain.product.port.out;
 
-import pl.equipment.store.domain.product.dto.ProductDto;
+import pl.equipment.store.domain.product.dto.CreateProductDto;
+import pl.equipment.store.domain.product.dto.ProductResponseDto;
 
 public interface ProductCommand {
-    ProductDto createProduct(ProductDto productDto);
+    ProductResponseDto createProduct(CreateProductDto createProductDto);
 }

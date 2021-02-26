@@ -1,17 +1,11 @@
 package pl.equipment.store.domain.order.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 @Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class CreateOrderDto {
-    private Long id;
-    private String status;
-    private double totalPrice;
-    private Long userId;
+    private final String status;
+    private final Long userId;
 }

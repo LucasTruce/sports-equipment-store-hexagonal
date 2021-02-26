@@ -1,7 +1,8 @@
 package pl.equipment.store.domain.product;
 
 import lombok.RequiredArgsConstructor;
-import pl.equipment.store.domain.product.dto.ProductDto;
+import pl.equipment.store.domain.product.dto.CreateProductDto;
+import pl.equipment.store.domain.product.dto.ProductResponseDto;
 import pl.equipment.store.domain.product.port.in.ProductCommandRepository;
 import pl.equipment.store.domain.product.port.out.ProductCommand;
 
@@ -13,13 +14,12 @@ class ProductCommandFacade implements ProductCommand {
 
 
     @Override
-    public ProductDto createProduct(ProductDto productDto) {
-        Product product = Product.create(productDto.getName(),
-                productDto.getDescription(),
-                productDto.getUnitPrice(),
-                productDto.getUnitsInStock(),
-                productDto.getImageUrl(),
-                productDto.isActive());
+    public ProductResponseDto createProduct(CreateProductDto createProductDto) {
+        Product product = Product.create(createProductDto.getName(),
+                createProductDto.getDescription(),
+                createProductDto.getUnitPrice(),
+                createProductDto.getUnitsInStock()
+        );
         return productCommandRepository.save(ProductMapper.toProductDto(product));
     }
 

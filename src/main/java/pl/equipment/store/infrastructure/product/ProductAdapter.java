@@ -2,7 +2,7 @@ package pl.equipment.store.infrastructure.product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.equipment.store.domain.product.dto.ProductDto;
+import pl.equipment.store.domain.product.dto.ProductResponseDto;
 import pl.equipment.store.domain.product.port.in.ProductCommandRepository;
 import pl.equipment.store.domain.product.port.in.ProductQueryRepository;
 
@@ -11,18 +11,18 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
-public class ProductAdapter implements ProductCommandRepository, ProductQueryRepository {
+class ProductAdapter implements ProductCommandRepository, ProductQueryRepository {
     private final ProductSpringRepository productSpringRepository;
 
     @Override
-    public ProductDto save(ProductDto productDto) {
+    public ProductResponseDto save(ProductResponseDto productResponseDto) {
         ProductEntity productEntity =
-                productSpringRepository.save(ProductEntity.EntityFactory.toProductEntity(productDto));
+                productSpringRepository.save(ProductEntity.EntityFactory.toProductEntity(productResponseDto));
         return ProductEntity.EntityFactory.toProductDto(productEntity);
     }
 
     @Override
-    public List<ProductDto> findProducts() {
+    public List<ProductResponseDto> findProducts() {
         return productSpringRepository.findAll()
                 .stream()
                 .map(ProductEntity.EntityFactory::toProductDto)

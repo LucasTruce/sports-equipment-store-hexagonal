@@ -12,7 +12,7 @@ class Order {
     private final double totalPrice;
     private final Long userId;
 
-    static Order create(String status, double totalPrice, Long userId){
-        return new Order(null, status, totalPrice, userId);
+    static Order create(String status, Long userId){
+        return new Order(null, status, 0, userId);
     }
 }

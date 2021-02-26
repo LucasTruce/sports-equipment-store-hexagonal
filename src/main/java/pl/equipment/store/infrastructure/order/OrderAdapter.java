@@ -2,7 +2,6 @@ package pl.equipment.store.infrastructure.order;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.equipment.store.domain.order.dto.CreateOrderDto;
 import pl.equipment.store.domain.order.dto.ResponseOrderDto;
 import pl.equipment.store.domain.order.port.in.OrderCommandRepository;
 import pl.equipment.store.domain.order.port.in.OrderQueryRepository;
@@ -15,18 +14,17 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
-public class OrderAdapter implements OrderCommandRepository, OrderQueryRepository {
+class OrderAdapter implements OrderCommandRepository, OrderQueryRepository {
 
     private final OrderSpringRepository repository;
     private final UserSpringRepository userRepository;
 
     @Override
-    public ResponseOrderDto saveOrder(CreateOrderDto createOrderDto) {
-        OrderEntity orderEntity = OrderEntity.EntityFactory.toOrderEntity(createOrderDto);
-        UserEntity userEntity = userRepository.findById(createOrderDto.getUserId()).orElseThrow(() -> new EntityNotFoundException("User not found!"));
+    public ResponseOrderDto saveOrder(ResponseOrderDto responseOrderDto) {
+        OrderEntity orderEntity = OrderEntity.EntityFactory.toOrderEntity(responseOrderDto);
+        UserEntity userEntity = userRepository.findById(responseOrderDto.getUserId()).orElseThrow(() -> new EntityNotFoundException("User not found!"));
         orderEntity.setUserEntity(userEntity);
-        repository.save(orderEntity);
-        return OrderEntity.EntityFactory.toResponseOrderDto(orderEntity);
+        return OrderEntity.EntityFactory.toResponseOrderDto(repository.save(orderEntity));
     }
 
     @Override

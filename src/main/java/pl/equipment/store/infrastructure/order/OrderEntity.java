@@ -6,7 +6,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
-import pl.equipment.store.domain.order.dto.CreateOrderDto;
 import pl.equipment.store.domain.order.dto.ResponseOrderDto;
 import pl.equipment.store.infrastructure.user.UserEntity;
 
@@ -23,17 +22,19 @@ public class OrderEntity {
     private Long id;
 
     private String status;
+
     private double totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
+
     static class EntityFactory {
         private static final IEntityMapper entityMapper = Mappers.getMapper(IEntityMapper.class);
 
-        static OrderEntity toOrderEntity(CreateOrderDto createOrderDto){
-            return entityMapper.toOrderEntity(createOrderDto);
+        static OrderEntity toOrderEntity(ResponseOrderDto responseOrderDto){
+            return entityMapper.toOrderEntity(responseOrderDto);
         }
 
         static ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity){
@@ -42,9 +43,11 @@ public class OrderEntity {
 
         @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
         interface IEntityMapper {
+            @Mapping(source = "userEntity.id", target = "userId")
             ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity);
+
             @Mapping(target = "userEntity", ignore = true)
-            OrderEntity toOrderEntity(CreateOrderDto createOrderDto);
+            OrderEntity toOrderEntity(ResponseOrderDto responseOrderDto);
         }
     }
 }

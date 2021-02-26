@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
-import pl.equipment.store.domain.product.dto.ProductDto;
+import pl.equipment.store.domain.product.dto.ProductResponseDto;
 
 import javax.persistence.*;
 
@@ -33,18 +33,18 @@ public class ProductEntity {
     static class EntityFactory {
         private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
-        static ProductEntity toProductEntity(ProductDto productDto){
-            return entityMapper.toProductEntity(productDto);
+        static ProductEntity toProductEntity(ProductResponseDto productResponseDto){
+            return entityMapper.toProductEntity(productResponseDto);
         }
 
-        static ProductDto toProductDto(ProductEntity productEntity){
+        static ProductResponseDto toProductDto(ProductEntity productEntity){
             return entityMapper.toProductDto(productEntity);
         }
 
         @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
         interface EntityMapper {
-            ProductDto toProductDto(ProductEntity productEntity);
-            ProductEntity toProductEntity(ProductDto productDto);
+            ProductResponseDto toProductDto(ProductEntity productEntity);
+            ProductEntity toProductEntity(ProductResponseDto productResponseDto);
         }
     }
 }

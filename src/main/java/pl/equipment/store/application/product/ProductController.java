@@ -2,14 +2,14 @@ package pl.equipment.store.application.product;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.equipment.store.domain.product.dto.ProductDto;
+import pl.equipment.store.domain.product.dto.ProductResponseDto;
 import pl.equipment.store.domain.product.port.out.ProductCommand;
 import pl.equipment.store.domain.product.port.out.ProductQuery;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("products")
 @RequiredArgsConstructor
 class ProductController {
 
@@ -17,12 +17,12 @@ class ProductController {
     private final ProductQuery productQuery;
 
     @PostMapping
-    ProductDto addProduct(@RequestBody ProductDto productDto){
-        return productCommand.createProduct(productDto);
+    ProductResponseDto addProduct(@RequestBody CreateProductRequest createProductRequest){
+        return productCommand.createProduct(CreateProductRequest.toCreateProductDto(createProductRequest));
     }
 
     @GetMapping
-    List<ProductDto> getProducts(){
+    List<ProductResponseDto> getProducts(){
         return productQuery.getProducts();
     }
 

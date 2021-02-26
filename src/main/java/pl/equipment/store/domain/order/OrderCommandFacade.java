@@ -13,7 +13,7 @@ class OrderCommandFacade implements OrderCommand {
 
     @Override
     public ResponseOrderDto createOrder(CreateOrderDto createOrderDto) {
-        Order order = Order.create(createOrderDto.getStatus(), createOrderDto.getTotalPrice(), createOrderDto.getUserId());
-        return commandRepository.saveOrder(OrderMapper.toOrderDto(order));
+        Order order = Order.create(createOrderDto.getStatus(), createOrderDto.getUserId());
+        return commandRepository.saveOrder(OrderMapper.toResponseOrderDto(order));
     }
 }
