@@ -25,7 +25,7 @@ public class UserEntity {
     private String password;
     private LocalDateTime creationDate;
 
-    static class EntityFactory {
+
         private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
         static UserEntity toUserEntity(SaveUserDto saveUserDto){
@@ -41,5 +41,5 @@ public class UserEntity {
             UserIdentificationDto toUserIdentificationDto(UserEntity userEntity);
             UserEntity toUserEntity(SaveUserDto saveUserDto);
         }
-    }
+
 }

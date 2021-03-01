@@ -25,4 +25,11 @@ class OrderController {
     List<ResponseOrderDto> getAllOrders(){
         return orderQuery.findAllOrders();
     }
+
+    @PutMapping("/{id}")
+    ResponseOrderDto updateOrderTotalPrice(@PathVariable Long id, @RequestBody UpdateOrderRequest updateOrderRequest){
+
+        return orderCommand.updateOrder(orderQuery.findOrderById(id),
+                UpdateOrderRequest.toUpdateOrderDto(updateOrderRequest));
+    }
 }

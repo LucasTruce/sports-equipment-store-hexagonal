@@ -2,19 +2,21 @@ package pl.equipment.store.domain.orderDetails;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.equipment.store.domain.orderDetails.port.in.OrderDetailsCommandRepository;
-import pl.equipment.store.domain.orderDetails.port.in.OrderDetailsQueryRepository;
+import pl.equipment.store.domain.orderDetails.port.in.OrderDetailsRepository;
+import pl.equipment.store.domain.product.port.in.ProductRepository;
 
 @Configuration
 class OrderDetailsDomainConfig {
 
     @Bean
-    OrderDetailsCommandFacade orderDetailsCommandFacade(OrderDetailsCommandRepository repository){
-        return new OrderDetailsCommandFacade(repository);
+    OrderDetailsCommandFacade orderDetailsCommandFacade(OrderDetailsRepository repository,
+                                                        ProductRepository productRepository){
+        return new OrderDetailsCommandFacade(repository, productRepository);
     }
 
     @Bean
-    OrderDetailsQueryFacade orderDetailsQueryFacade(OrderDetailsQueryRepository repository){
+    OrderDetailsQueryFacade orderDetailsQueryFacade(OrderDetailsRepository repository){
         return new OrderDetailsQueryFacade(repository);
     }
+
 }

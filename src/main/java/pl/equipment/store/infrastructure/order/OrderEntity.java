@@ -30,24 +30,23 @@ public class OrderEntity {
     private UserEntity userEntity;
 
 
-    static class EntityFactory {
-        private static final IEntityMapper entityMapper = Mappers.getMapper(IEntityMapper.class);
+    private static final IEntityMapper entityMapper = Mappers.getMapper(IEntityMapper.class);
 
-        static OrderEntity toOrderEntity(ResponseOrderDto responseOrderDto){
-            return entityMapper.toOrderEntity(responseOrderDto);
-        }
+    static OrderEntity toOrderEntity(ResponseOrderDto responseOrderDto) {
+        return entityMapper.toOrderEntity(responseOrderDto);
+    }
 
-        static ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity){
-            return entityMapper.toResponseOrderDto(orderEntity);
-        }
+    static ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity) {
+        return entityMapper.toResponseOrderDto(orderEntity);
+    }
 
-        @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
-        interface IEntityMapper {
-            @Mapping(source = "userEntity.id", target = "userId")
-            ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity);
+    @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
+    interface IEntityMapper {
+        @Mapping(source = "userEntity.id", target = "userId")
+        ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity);
 
-            @Mapping(target = "userEntity", ignore = true)
-            OrderEntity toOrderEntity(ResponseOrderDto responseOrderDto);
-        }
+        @Mapping(target = "userEntity", ignore = true)
+        OrderEntity toOrderEntity(ResponseOrderDto responseOrderDto);
     }
 }
+

@@ -10,6 +10,7 @@ import org.mapstruct.factory.Mappers;
 import pl.equipment.store.domain.product.dto.ProductResponseDto;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "product")
@@ -25,26 +26,25 @@ public class ProductEntity {
 
     private String name;
     private String description;
-    private double unitPrice;
+    private BigDecimal unitPrice;
     private int unitsInStock;
     private String imageUrl;
     private boolean active;
 
-    static class EntityFactory {
-        private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
+    private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
-        static ProductEntity toProductEntity(ProductResponseDto productResponseDto){
-            return entityMapper.toProductEntity(productResponseDto);
-        }
-
-        static ProductResponseDto toProductDto(ProductEntity productEntity){
-            return entityMapper.toProductDto(productEntity);
-        }
-
-        @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
-        interface EntityMapper {
-            ProductResponseDto toProductDto(ProductEntity productEntity);
-            ProductEntity toProductEntity(ProductResponseDto productResponseDto);
-        }
+    static ProductEntity toProductEntity(ProductResponseDto productResponseDto){
+        return entityMapper.toProductEntity(productResponseDto);
     }
+
+    static ProductResponseDto toProductDto(ProductEntity productEntity){
+        return entityMapper.toProductDto(productEntity);
+    }
+
+    @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
+    interface EntityMapper {
+        ProductResponseDto toProductDto(ProductEntity productEntity);
+        ProductEntity toProductEntity(ProductResponseDto productResponseDto);
+    }
+
 }

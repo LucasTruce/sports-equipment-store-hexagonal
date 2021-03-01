@@ -2,6 +2,9 @@ package pl.equipment.store.domain.orderDetails.port.in;
 
 import pl.equipment.store.domain.orderDetails.dto.OrderDetailsResponseDto;
 
-public interface OrderDetailsCommandRepository {
+import java.util.List;
+
+public interface OrderDetailsRepository {
     OrderDetailsResponseDto saveOrderDetails(OrderDetailsResponseDto orderDetailsResponseDto);
+    List<OrderDetailsResponseDto> findAllOrderDetails();
 }

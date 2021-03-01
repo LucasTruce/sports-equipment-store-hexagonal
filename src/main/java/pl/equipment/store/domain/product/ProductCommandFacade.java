@@ -3,15 +3,14 @@ package pl.equipment.store.domain.product;
 import lombok.RequiredArgsConstructor;
 import pl.equipment.store.domain.product.dto.CreateProductDto;
 import pl.equipment.store.domain.product.dto.ProductResponseDto;
-import pl.equipment.store.domain.product.port.in.ProductCommandRepository;
+import pl.equipment.store.domain.product.port.in.ProductRepository;
 import pl.equipment.store.domain.product.port.out.ProductCommand;
 
 
 @RequiredArgsConstructor
 class ProductCommandFacade implements ProductCommand {
 
-    private final ProductCommandRepository productCommandRepository;
-
+    private final ProductRepository productRepository;
 
     @Override
     public ProductResponseDto createProduct(CreateProductDto createProductDto) {
@@ -20,7 +19,7 @@ class ProductCommandFacade implements ProductCommand {
                 createProductDto.getUnitPrice(),
                 createProductDto.getUnitsInStock()
         );
-        return productCommandRepository.save(ProductMapper.toProductDto(product));
+        return productRepository.save(ProductMapper.toProductDto(product));
     }
 
 }

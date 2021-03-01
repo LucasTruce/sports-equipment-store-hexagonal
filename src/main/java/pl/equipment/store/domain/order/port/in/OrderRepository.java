@@ -4,6 +4,8 @@ import pl.equipment.store.domain.order.dto.ResponseOrderDto;
 
 import java.util.List;
 
-public interface OrderQueryRepository {
+public interface OrderRepository {
+    ResponseOrderDto saveOrder(ResponseOrderDto responseOrderDto);
     List<ResponseOrderDto> findAllOrders();
+    ResponseOrderDto findOrderById(Long id);
 }

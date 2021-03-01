@@ -6,6 +6,7 @@ import pl.equipment.store.domain.product.dto.CreateProductDto;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import java.math.BigDecimal;
 
 @RequiredArgsConstructor
 @Getter
@@ -15,7 +16,7 @@ class CreateProductRequest {
     @NotBlank
     private final String description;
     @Min(1)
-    private final double unitPrice;
+    private final BigDecimal unitPrice;
     private final int unitsInStock;
 
     static CreateProductDto toCreateProductDto(CreateProductRequest productRequest){

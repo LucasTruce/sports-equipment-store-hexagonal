@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface OrderQuery {
     List<ResponseOrderDto> findAllOrders();
+    ResponseOrderDto findOrderById(Long id);
 }

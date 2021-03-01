@@ -11,9 +11,13 @@ class OrderMapper {
     static ResponseOrderDto toResponseOrderDto(Order order){
         return orderMapper.toResponseOrderDto(order);
     }
+    static Order toOrder(ResponseOrderDto responseOrderDto) {
+        return orderMapper.toOrder(responseOrderDto);
+    }
 
     @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
     interface IOrderMapper{
         ResponseOrderDto toResponseOrderDto(Order order);
+        Order toOrder(ResponseOrderDto responseOrderDto);
     }
 }

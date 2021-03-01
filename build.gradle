@@ -19,6 +19,12 @@ repositories {
 }
 
 dependencies {
+    // Lombok
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -26,18 +32,15 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
 
-    // Lombok
-    testAnnotationProcessor 'org.projectlombok:lombok'
-    testCompileOnly 'org.projectlombok:lombok'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-
     // MapStruct
     implementation 'org.mapstruct:mapstruct:1.4.1.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 
     // Swagger
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.4'
+
+    // Vavr
+    implementation group: 'io.vavr', name: 'vavr', version: '0.10.3'
 }
 
 test {
