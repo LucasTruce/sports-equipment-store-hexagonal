@@ -1,7 +1,10 @@
 package pl.equipment.store.application.order;
 
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.equipment.store.domain.order.dto.OrderResponseError;
 import pl.equipment.store.domain.order.dto.ResponseOrderDto;
 import pl.equipment.store.domain.order.port.out.OrderCommand;
 import pl.equipment.store.domain.order.port.out.OrderQuery;
@@ -17,19 +20,24 @@ class OrderController {
     private final OrderQuery orderQuery;
 
     @PostMapping
-    ResponseOrderDto saveOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest){
-        return orderCommand.createOrder(CreateOrderRequest.toCreateOrderDto(createOrderRequest));
+    ResponseEntity<?> saveOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
+        Either<OrderResponseError, ResponseOrderDto> either = orderCommand.createOrder(CreateOrderRequest.toCreateOrderDto(createOrderRequest));
+        if (either.isLeft())
+            return ResponseEntity.badRequest().body(either.getLeft());
+        return ResponseEntity.ok(either.get());
     }
 
     @GetMapping
-    List<ResponseOrderDto> getAllOrders(){
+    List<ResponseOrderDto> getAllOrders() {
         return orderQuery.findAllOrders();
     }
 
-    @PutMapping("/{id}")
-    ResponseOrderDto updateOrderTotalPrice(@PathVariable Long id, @RequestBody UpdateOrderRequest updateOrderRequest){
-
-        return orderCommand.updateOrder(orderQuery.findOrderById(id),
-                UpdateOrderRequest.toUpdateOrderDto(updateOrderRequest));
+    @GetMapping("/{id}")
+    ResponseEntity<?> findOrderById(@PathVariable Long id) {
+        Either<OrderResponseError, ResponseOrderDto> either = orderQuery.findOrderById(id);
+        if (either.isLeft())
+            return ResponseEntity.badRequest().body(either.getLeft());
+        return ResponseEntity.ok(either.get());
     }
+
 }

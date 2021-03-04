@@ -13,7 +13,7 @@ class CreateOrderDetailsRequest {
     private final Long orderId;
     private final Long productId;
 
-    static CreateOrderDetailsDto toCreateOrderDetailsDto(CreateOrderDetailsRequest orderDetailsRequest){
+    static CreateOrderDetailsDto toCreateOrderDetailsDto(CreateOrderDetailsRequest orderDetailsRequest) {
         return new CreateOrderDetailsDto(orderDetailsRequest.getQuantity(), orderDetailsRequest.getOrderId(), orderDetailsRequest.getProductId());
     }
 }

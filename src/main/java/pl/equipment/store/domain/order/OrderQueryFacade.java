@@ -1,6 +1,8 @@
 package pl.equipment.store.domain.order;
 
+import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
+import pl.equipment.store.domain.order.dto.OrderResponseError;
 import pl.equipment.store.domain.order.dto.ResponseOrderDto;
 import pl.equipment.store.domain.order.port.in.OrderRepository;
 import pl.equipment.store.domain.order.port.out.OrderQuery;
@@ -18,7 +20,7 @@ class OrderQueryFacade implements OrderQuery {
     }
 
     @Override
-    public ResponseOrderDto findOrderById(Long id) {
+    public Either<OrderResponseError, ResponseOrderDto> findOrderById(Long id) {
         return queryRepository.findOrderById(id);
     }
 }

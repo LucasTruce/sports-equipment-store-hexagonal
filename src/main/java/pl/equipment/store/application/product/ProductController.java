@@ -17,13 +17,13 @@ class ProductController {
     private final ProductQuery productQuery;
 
     @PostMapping
-    ProductResponseDto addProduct(@RequestBody CreateProductRequest createProductRequest){
+    ProductResponseDto saveProduct(@RequestBody CreateProductRequest createProductRequest) {
         return productCommand.createProduct(CreateProductRequest.toCreateProductDto(createProductRequest));
     }
 
     @GetMapping
-    List<ProductResponseDto> getProducts(){
-        return productQuery.getProducts();
+    List<ProductResponseDto> getAllProducts() {
+        return productQuery.findAllProducts();
     }
 
 }

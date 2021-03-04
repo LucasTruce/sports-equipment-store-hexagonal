@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ControllerAdvice
-public class EntityExceptionHandler {
+class EntityExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<EntityErrorResponse> EntityNotFound(EntityNotFoundException ex) {

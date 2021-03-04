@@ -8,6 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import pl.equipment.store.domain.product.dto.ProductResponseDto;
+import pl.equipment.store.domain.product.dto.SaveProductDto;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -33,18 +34,19 @@ public class ProductEntity {
 
     private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
-    static ProductEntity toProductEntity(ProductResponseDto productResponseDto){
-        return entityMapper.toProductEntity(productResponseDto);
+    static ProductEntity toProductEntity(SaveProductDto saveProductDto) {
+        return entityMapper.toProductEntity(saveProductDto);
     }
 
-    static ProductResponseDto toProductDto(ProductEntity productEntity){
-        return entityMapper.toProductDto(productEntity);
+    static ProductResponseDto toProductResponseDto(ProductEntity productEntity) {
+        return entityMapper.toProductResponseDto(productEntity);
     }
 
     @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
     interface EntityMapper {
-        ProductResponseDto toProductDto(ProductEntity productEntity);
-        ProductEntity toProductEntity(ProductResponseDto productResponseDto);
+        ProductResponseDto toProductResponseDto(ProductEntity productEntity);
+
+        ProductEntity toProductEntity(SaveProductDto saveProductDto);
     }
 
 }

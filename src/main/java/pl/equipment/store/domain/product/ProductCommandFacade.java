@@ -14,12 +14,7 @@ class ProductCommandFacade implements ProductCommand {
 
     @Override
     public ProductResponseDto createProduct(CreateProductDto createProductDto) {
-        Product product = Product.create(createProductDto.getName(),
-                createProductDto.getDescription(),
-                createProductDto.getUnitPrice(),
-                createProductDto.getUnitsInStock()
-        );
-        return productRepository.save(ProductMapper.toProductDto(product));
+        return productRepository.save(Product.create(createProductDto));
     }
 
 }

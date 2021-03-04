@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
-public class NotValidErrorResponse {
+class NotValidErrorResponse {
     private final int status;
     private final List<EntityError> errors;
     private final LocalDateTime timestamp;

@@ -7,9 +7,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import pl.equipment.store.domain.order.dto.ResponseOrderDto;
+import pl.equipment.store.domain.order.dto.SaveOrderDto;
 import pl.equipment.store.infrastructure.user.UserEntity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "user_order")
@@ -23,17 +25,16 @@ public class OrderEntity {
 
     private String status;
 
-    private double totalPrice;
+    private BigDecimal totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
-
     private static final IEntityMapper entityMapper = Mappers.getMapper(IEntityMapper.class);
 
-    static OrderEntity toOrderEntity(ResponseOrderDto responseOrderDto) {
-        return entityMapper.toOrderEntity(responseOrderDto);
+    static OrderEntity toOrderEntity(SaveOrderDto saveOrderDto) {
+        return entityMapper.toOrderEntity(saveOrderDto);
     }
 
     static ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity) {
@@ -42,11 +43,11 @@ public class OrderEntity {
 
     @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
     interface IEntityMapper {
-        @Mapping(source = "userEntity.id", target = "userId")
         ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity);
 
-        @Mapping(target = "userEntity", ignore = true)
-        OrderEntity toOrderEntity(ResponseOrderDto responseOrderDto);
+        @Mapping(source = "userId", target = "userEntity.id")
+        OrderEntity toOrderEntity(SaveOrderDto saveOrderDto);
+
     }
 }
 

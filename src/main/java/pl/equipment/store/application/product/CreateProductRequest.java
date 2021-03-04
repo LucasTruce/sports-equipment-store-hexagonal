@@ -19,7 +19,7 @@ class CreateProductRequest {
     private final BigDecimal unitPrice;
     private final int unitsInStock;
 
-    static CreateProductDto toCreateProductDto(CreateProductRequest productRequest){
+    static CreateProductDto toCreateProductDto(CreateProductRequest productRequest) {
         return new CreateProductDto(productRequest.getName(), productRequest.getDescription(), productRequest.unitPrice, productRequest.unitsInStock);
     }
 }

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @Getter
-public class UserIdentificationDto {
+public class UserResponseDto {
     private final Long id;
     private final String username;
     private final LocalDateTime creationDate;

@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import pl.equipment.store.domain.user.dto.SaveUserDto;
-import pl.equipment.store.domain.user.dto.UserIdentificationDto;
+import pl.equipment.store.domain.user.dto.UserResponseDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,20 +26,21 @@ public class UserEntity {
     private LocalDateTime creationDate;
 
 
-        private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
+    private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
-        static UserEntity toUserEntity(SaveUserDto saveUserDto){
-            return entityMapper.toUserEntity(saveUserDto);
-        }
+    static UserEntity toUserEntity(SaveUserDto saveUserDto) {
+        return entityMapper.toUserEntity(saveUserDto);
+    }
 
-        static UserIdentificationDto toUserIdentificationDto(UserEntity userEntity){
-            return entityMapper.toUserIdentificationDto(userEntity);
-        }
+    static UserResponseDto toUserIdentificationDto(UserEntity userEntity) {
+        return entityMapper.toUserIdentificationDto(userEntity);
+    }
 
-        @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
-        interface EntityMapper {
-            UserIdentificationDto toUserIdentificationDto(UserEntity userEntity);
-            UserEntity toUserEntity(SaveUserDto saveUserDto);
-        }
+    @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
+    interface EntityMapper {
+        UserResponseDto toUserIdentificationDto(UserEntity userEntity);
+
+        UserEntity toUserEntity(SaveUserDto saveUserDto);
+    }
 
 }

@@ -15,7 +15,7 @@ class CreateUserRequest {
     @NotBlank(message = "Can't be blank!")
     private final String password;
 
-    static CreateUserDto toCreateUserDto(CreateUserRequest createUserRequest){
+    static CreateUserDto toCreateUserDto(CreateUserRequest createUserRequest) {
         return new CreateUserDto(createUserRequest.getUsername(), createUserRequest.getPassword());
     }
 

@@ -7,11 +7,12 @@ import java.math.BigDecimal;
 
 @RequiredArgsConstructor
 @Getter
-public class ProductResponseDto {
+public class SaveProductDto {
     private final Long id;
     private final String name;
     private final String description;
     private final BigDecimal unitPrice;
     private final int unitsInStock;
     private final String imageUrl;
+    private final boolean active;
 }

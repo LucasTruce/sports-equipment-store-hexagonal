@@ -1,10 +1,10 @@
 package pl.equipment.store.domain.order.port.out;
 
+import io.vavr.control.Either;
 import pl.equipment.store.domain.order.dto.CreateOrderDto;
+import pl.equipment.store.domain.order.dto.OrderResponseError;
 import pl.equipment.store.domain.order.dto.ResponseOrderDto;
-import pl.equipment.store.domain.order.dto.UpdateOrderDto;
 
 public interface OrderCommand {
-    ResponseOrderDto createOrder(CreateOrderDto createOrderDto);
-    ResponseOrderDto updateOrder(ResponseOrderDto responseOrderDto, UpdateOrderDto updateOrderDto);
+    Either<OrderResponseError, ResponseOrderDto> createOrder(CreateOrderDto createOrderDto);
 }

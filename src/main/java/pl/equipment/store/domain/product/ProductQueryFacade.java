@@ -13,7 +13,7 @@ class ProductQueryFacade implements ProductQuery {
     private final ProductRepository productQueryRepository;
 
     @Override
-    public List<ProductResponseDto> getProducts() {
+    public List<ProductResponseDto> findAllProducts() {
         return productQueryRepository.findProducts();
     }
 }

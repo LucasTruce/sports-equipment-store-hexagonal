@@ -7,8 +7,9 @@ import java.math.BigDecimal;
 
 @RequiredArgsConstructor
 @Getter
-public class ResponseOrderDto {
+public class SaveOrderDto {
     private final Long id;
     private final String status;
     private final BigDecimal totalPrice;
+    private final Long userId;
 }

@@ -2,7 +2,7 @@ package pl.equipment.store.application.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.equipment.store.domain.user.dto.UserIdentificationDto;
+import pl.equipment.store.domain.user.dto.UserResponseDto;
 import pl.equipment.store.domain.user.port.out.UserCommand;
 import pl.equipment.store.domain.user.port.out.UserQuery;
 
@@ -18,12 +18,12 @@ class UserController {
     private final UserQuery userQuery;
 
     @PostMapping
-    UserIdentificationDto saveUser(@RequestBody @Valid CreateUserRequest createUserRequest){
+    UserResponseDto saveUser(@RequestBody @Valid CreateUserRequest createUserRequest) {
         return userCommand.createUser(CreateUserRequest.toCreateUserDto(createUserRequest));
     }
 
     @GetMapping
-    List<UserIdentificationDto> getAllUsers(){
+    List<UserResponseDto> getAllUsers() {
         return userQuery.findAllUsers();
     }
 

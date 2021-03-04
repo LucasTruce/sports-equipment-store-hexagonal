@@ -13,7 +13,7 @@ class CreateOrderRequest {
     private final String status;
     private final Long userId;
 
-    static CreateOrderDto toCreateOrderDto(CreateOrderRequest createOrderRequest){
+    static CreateOrderDto toCreateOrderDto(CreateOrderRequest createOrderRequest) {
         return new CreateOrderDto(createOrderRequest.getStatus(), createOrderRequest.getUserId());
     }
 }

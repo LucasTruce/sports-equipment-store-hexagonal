@@ -1,23 +1,29 @@
 package pl.equipment.store.domain.order;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
-import pl.equipment.store.domain.order.dto.ResponseOrderDto;
+import pl.equipment.store.domain.order.dto.CreateOrderDto;
+import pl.equipment.store.domain.order.dto.SaveOrderDto;
 
 class OrderMapper {
     private static final IOrderMapper orderMapper = Mappers.getMapper(IOrderMapper.class);
 
-    static ResponseOrderDto toResponseOrderDto(Order order){
-        return orderMapper.toResponseOrderDto(order);
+    static Order toOrder(CreateOrderDto createOrderDto) {
+        return orderMapper.toOrder(createOrderDto);
     }
-    static Order toOrder(ResponseOrderDto responseOrderDto) {
-        return orderMapper.toOrder(responseOrderDto);
+
+    static SaveOrderDto toSaveOrderDto(Order order) {
+        return orderMapper.toSaveOrderDto(order);
     }
 
     @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
-    interface IOrderMapper{
-        ResponseOrderDto toResponseOrderDto(Order order);
-        Order toOrder(ResponseOrderDto responseOrderDto);
+    interface IOrderMapper {
+        SaveOrderDto toSaveOrderDto(Order order);
+
+        @Mapping(target = "id", ignore = true)
+        @Mapping(target = "totalPrice", ignore = true)
+        Order toOrder(CreateOrderDto createOrderDto);
     }
 }
