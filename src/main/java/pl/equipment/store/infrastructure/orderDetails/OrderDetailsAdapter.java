@@ -1,5 +1,6 @@
 package pl.equipment.store.infrastructure.orderDetails;
 
+import io.vavr.control.Option;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.equipment.store.domain.orderDetails.dto.OrderDetailsProductDto;
@@ -10,7 +11,6 @@ import pl.equipment.store.infrastructure.order.OrderEntity;
 import pl.equipment.store.infrastructure.order.OrderSpringRepository;
 import pl.equipment.store.infrastructure.product.ProductSpringRepository;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
@@ -26,7 +26,7 @@ class OrderDetailsAdapter implements OrderDetailsRepository {
 
     @Override
     @Transactional
-    public OrderDetailsResponseDto saveOrderDetails(SaveOrderDetailsDto saveOrderDetailsDto) {
+    public OrderDetailsResponseDto save(SaveOrderDetailsDto saveOrderDetailsDto) {
 
         orderRepository.findById(saveOrderDetailsDto.getOrderId())
                 .ifPresent(o -> o.setTotalPrice(saveOrderDetailsDto.getTotalPrice()));
@@ -34,12 +34,11 @@ class OrderDetailsAdapter implements OrderDetailsRepository {
                 .ifPresent(p -> p.setUnitsInStock(saveOrderDetailsDto.getUnitsInStock()));
 
         OrderDetailsEntity entity = repository.save(OrderDetailsEntity.toOrderDetailsEntity(saveOrderDetailsDto));
-
         return OrderDetailsEntity.toOrderDetailsResponseDto(entity);
     }
 
     @Override
-    public List<OrderDetailsResponseDto> findAllOrderDetails() {
+    public List<OrderDetailsResponseDto> findAll() {
         return repository.findAll()
                 .stream()
                 .map(OrderDetailsEntity::toOrderDetailsResponseDto)
@@ -47,16 +46,13 @@ class OrderDetailsAdapter implements OrderDetailsRepository {
     }
 
     @Override
-    public OrderDetailsProductDto getProductPriceAndUnits(Long productId) {
-        return productRepository.findById(productId)
-                .map(OrderDetailsEntity::toOrderDetailsProductDto)
-                .orElseThrow(() -> new EntityNotFoundException("Product not found!"));
+    public Option<OrderDetailsProductDto> getProductPriceAndUnits(Long productId) {
+        return Option.ofOptional(productRepository.findById(productId).map(OrderDetailsEntity::toOrderDetailsProductDto));
     }
 
     @Override
-    public BigDecimal getOrderTotalPrice(Long orderId) {
-        return orderRepository.findById(orderId).map(OrderEntity::getTotalPrice)
-                .orElseThrow(() -> new EntityNotFoundException("Order not found!"));
+    public Option<BigDecimal> getOrderTotalPrice(Long orderId) {
+        return Option.ofOptional(orderRepository.findById(orderId).map(OrderEntity::getTotalPrice));
     }
 
 }

@@ -17,9 +17,13 @@ class OrderDetails {
     private final Long productId;
 
     static SaveOrderDetailsDto create(CreateOrderDetailsDto createOrderDetailsDto, BigDecimal totalPrice, int unitsInStock) {
-        OrderDetails orderDetails = OrderDetailsMapper.toOrderDetails(createOrderDetailsDto);
-
-        return new SaveOrderDetailsDto(orderDetails.getId(), orderDetails.getQuantity(), orderDetails.getOrderId(), orderDetails.getProductId(), totalPrice, unitsInStock);
+        return new SaveOrderDetailsDto(
+                null,
+                createOrderDetailsDto.getQuantity(),
+                createOrderDetailsDto.getOrderId(),
+                createOrderDetailsDto.getProductId(),
+                totalPrice,
+                unitsInStock);
     }
 
 }

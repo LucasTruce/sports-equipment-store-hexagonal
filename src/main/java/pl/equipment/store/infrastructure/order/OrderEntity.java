@@ -31,7 +31,7 @@ public class OrderEntity {
     @JoinColumn(name = "user_id")
     private UserEntity userEntity;
 
-    private static final IEntityMapper entityMapper = Mappers.getMapper(IEntityMapper.class);
+    private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
     static OrderEntity toOrderEntity(SaveOrderDto saveOrderDto) {
         return entityMapper.toOrderEntity(saveOrderDto);
@@ -42,7 +42,7 @@ public class OrderEntity {
     }
 
     @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
-    interface IEntityMapper {
+    interface EntityMapper {
         ResponseOrderDto toResponseOrderDto(OrderEntity orderEntity);
 
         @Mapping(source = "userId", target = "userEntity.id")

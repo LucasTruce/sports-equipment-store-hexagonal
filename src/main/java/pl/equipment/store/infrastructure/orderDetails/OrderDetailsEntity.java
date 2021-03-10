@@ -39,7 +39,7 @@ public class OrderDetailsEntity {
     private ProductEntity productEntity;
 
 
-    private static final IEntityMapper entityMapper = Mappers.getMapper(IEntityMapper.class);
+    private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
 
     static OrderDetailsResponseDto toOrderDetailsResponseDto(OrderDetailsEntity orderDetailsEntity) {
         return entityMapper.toOrderDetailsResponseDto(orderDetailsEntity);
@@ -55,7 +55,7 @@ public class OrderDetailsEntity {
 
 
     @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
-    interface IEntityMapper {
+    interface EntityMapper {
         @Mapping(source = "orderEntity.id", target = "orderId")
         @Mapping(source = "productEntity.id", target = "productId")
         OrderDetailsResponseDto toOrderDetailsResponseDto(OrderDetailsEntity orderDetailsEntity);

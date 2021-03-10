@@ -14,6 +14,6 @@ class OrderDetailsQueryFacade implements OrderDetailsQuery {
 
     @Override
     public List<OrderDetailsResponseDto> findAllOrderDetails() {
-        return repository.findAllOrderDetails();
+        return repository.findAll();
     }
 }

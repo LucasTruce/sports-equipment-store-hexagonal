@@ -9,6 +9,7 @@ import pl.equipment.store.domain.orderDetails.dto.OrderDetailsResponseError;
 import pl.equipment.store.domain.orderDetails.port.out.OrderDetailsCommand;
 import pl.equipment.store.domain.orderDetails.port.out.OrderDetailsQuery;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,11 +20,13 @@ class OrderDetailsController {
     private final OrderDetailsQuery orderDetailsQuery;
 
     @PostMapping
-    ResponseEntity<?> createOrderDetails(@RequestBody CreateOrderDetailsRequest createOrderDetailsDto) {
+    ResponseEntity<?> createOrderDetails(@RequestBody @Valid CreateOrderDetailsRequest createOrderDetailsDto) {
         Either<OrderDetailsResponseError, OrderDetailsResponseDto> either = orderDetailsCommand.createOrderDetails(CreateOrderDetailsRequest.toCreateOrderDetailsDto(createOrderDetailsDto));
         if (either.isRight())
             return ResponseEntity.ok(either.get());
-        return ResponseEntity.badRequest().body(either.getLeft());
+        return either
+                .map(d -> ResponseEntity.ok( (Object)d ))
+                .getOrElseGet( o -> ResponseEntity.badRequest().body(o));
     }
 
     @GetMapping

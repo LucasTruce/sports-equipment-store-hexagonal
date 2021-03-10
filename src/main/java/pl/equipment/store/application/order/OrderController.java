@@ -22,9 +22,10 @@ class OrderController {
     @PostMapping
     ResponseEntity<?> saveOrder(@RequestBody @Valid CreateOrderRequest createOrderRequest) {
         Either<OrderResponseError, ResponseOrderDto> either = orderCommand.createOrder(CreateOrderRequest.toCreateOrderDto(createOrderRequest));
-        if (either.isLeft())
-            return ResponseEntity.badRequest().body(either.getLeft());
-        return ResponseEntity.ok(either.get());
+
+        return either
+                .map(s -> ResponseEntity.ok((Object)s))
+                .getOrElseGet(z -> ResponseEntity.badRequest().body(z));
     }
 
     @GetMapping
@@ -34,10 +35,9 @@ class OrderController {
 
     @GetMapping("/{id}")
     ResponseEntity<?> findOrderById(@PathVariable Long id) {
-        Either<OrderResponseError, ResponseOrderDto> either = orderQuery.findOrderById(id);
-        if (either.isLeft())
-            return ResponseEntity.badRequest().body(either.getLeft());
-        return ResponseEntity.ok(either.get());
+        return orderQuery.findOrderById(id)
+                .map(d -> ResponseEntity.ok((Object)d))
+                .getOrElseGet(o -> ResponseEntity.badRequest().body(o));
     }
 
 }

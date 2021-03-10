@@ -44,8 +44,8 @@ public class ProductEntity {
 
     @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
     interface EntityMapper {
-        ProductResponseDto toProductResponseDto(ProductEntity productEntity);
 
+        ProductResponseDto toProductResponseDto(ProductEntity productEntity);
         ProductEntity toProductEntity(SaveProductDto saveProductDto);
     }
 
