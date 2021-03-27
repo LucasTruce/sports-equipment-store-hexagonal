@@ -23,18 +23,7 @@ class OrderDetailsService {
 
         final OrderDetailsProductDto foundProduct = productRepository.getPriceAndUnitsInStock(createOrderDetailsDto.getProductId()).getOrNull();
         final int quantity = createOrderDetailsDto.getQuantity();
-//
-//        return productRepository.getPriceAndUnitsInStock(createOrderDetailsDto.getProductId())
-//                .toEither(() -> new OrderDetailsResponseError("Product not found!"))
-//                .filter(product -> product.isAvailable(quantity))
-//                .flatMap(product -> productRepository.updateUnitsInStock(createOrderDetailsDto.getProductId(), getTotalUnitsInStock(quantity, product.getUnitsInStock())))
-//                .toEither(() -> new OrderDetailsResponseError("Product not found or not in stock!"))
-//                .flatMap(productId -> orderRepository.getTotalPrice(createOrderDetailsDto.getOrderId())
-//                        .map(totalPrice -> totalPrice.add(foundProduct.calculateTotalOrderPrice(quantity)))
-//                        .flatMap(totalPrice -> orderRepository.updateTotalPrice(createOrderDetailsDto.getOrderId(), totalPrice))
-//                        .toEither(() -> new OrderDetailsResponseError("Order not found!"))
-//                        .map(orderId -> repository.save(OrderDetails.create(createOrderDetailsDto))));
-
+        
         return productRepository.getPriceAndUnitsInStock(createOrderDetailsDto.getProductId())
                 .toEither(() -> new OrderDetailsResponseError("Product not found!"))
                 .map(product -> checkIfProductIsInStockAndGetUnits(quantity, product))
