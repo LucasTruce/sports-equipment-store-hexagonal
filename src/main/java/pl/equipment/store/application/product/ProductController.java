@@ -3,8 +3,8 @@ package pl.equipment.store.application.product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.equipment.store.domain.product.dto.ProductResponseDto;
-import pl.equipment.store.domain.product.port.out.ProductCommand;
-import pl.equipment.store.domain.product.port.out.ProductQuery;
+import pl.equipment.store.domain.product.port.out.CreateProduct;
+import pl.equipment.store.domain.product.port.out.FindProduct;
 
 import java.util.List;
 
@@ -13,17 +13,17 @@ import java.util.List;
 @RequiredArgsConstructor
 class ProductController {
 
-    private final ProductCommand productCommand;
-    private final ProductQuery productQuery;
+    private final CreateProduct createProduct;
+    private final FindProduct findProduct;
 
     @PostMapping
     ProductResponseDto saveProduct(@RequestBody CreateProductRequest createProductRequest) {
-        return productCommand.createProduct(CreateProductRequest.toCreateProductDto(createProductRequest));
+        return createProduct.create(CreateProductRequest.toCreateProductDto(createProductRequest));
     }
 
     @GetMapping
     List<ProductResponseDto> getAllProducts() {
-        return productQuery.findAllProducts();
+        return findProduct.findAll();
     }
 
 }

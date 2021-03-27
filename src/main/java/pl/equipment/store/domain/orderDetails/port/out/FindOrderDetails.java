@@ -4,6 +4,6 @@ import pl.equipment.store.domain.orderDetails.dto.OrderDetailsResponseDto;
 
 import java.util.List;
 
-public interface OrderDetailsQuery {
-    List<OrderDetailsResponseDto> findAllOrderDetails();
+public interface FindOrderDetails {
+    List<OrderDetailsResponseDto> findAll();
 }

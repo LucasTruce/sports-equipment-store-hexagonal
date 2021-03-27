@@ -8,12 +8,10 @@ import pl.equipment.store.domain.user.port.in.UserRepository;
 class UserDomainConfig {
 
     @Bean
-    UserCommandFacade userCommandFacade(UserRepository userRepository) {
-        return new UserCommandFacade(userRepository);
+    UserFacade userCommandFacade(UserRepository userRepository) {
+        UserService userService = new UserService(userRepository);
+        return new UserFacade(userService);
     }
 
-    @Bean
-    UserQueryFacade userQueryFacade(UserRepository userRepository) {
-        return new UserQueryFacade(userRepository);
-    }
+
 }

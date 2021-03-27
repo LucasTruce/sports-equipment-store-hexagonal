@@ -9,5 +9,5 @@ import java.time.LocalDateTime;
 @Getter
 public class OrderDetailsResponseError {
     private final String message;
-    private final LocalDateTime timestamp;
+    private final LocalDateTime timestamp = LocalDateTime.now();
 }

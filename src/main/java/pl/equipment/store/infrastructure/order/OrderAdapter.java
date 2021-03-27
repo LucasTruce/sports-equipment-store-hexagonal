@@ -1,50 +1,54 @@
 package pl.equipment.store.infrastructure.order;
 
-import io.vavr.control.Either;
+import io.vavr.control.Option;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.equipment.store.domain.order.dto.OrderResponseError;
 import pl.equipment.store.domain.order.dto.ResponseOrderDto;
 import pl.equipment.store.domain.order.dto.SaveOrderDto;
 import pl.equipment.store.domain.order.port.in.OrderRepository;
-import pl.equipment.store.infrastructure.user.UserSpringRepository;
+import pl.equipment.store.domain.orderDetails.port.in.OrderDatabase;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
-class OrderAdapter implements OrderRepository {
+class OrderAdapter implements OrderRepository, OrderDatabase {
 
     private final OrderSpringRepository repository;
-    private final UserSpringRepository userRepository;
 
     @Override
-    public Either<OrderResponseError, ResponseOrderDto> saveOrder(SaveOrderDto saveOrderDto) {
-        OrderEntity orderEntity = OrderEntity.toOrderEntity(saveOrderDto);
-
-        if (userRepository.existsById(saveOrderDto.getUserId()))
-            return Either.right(OrderEntity.toResponseOrderDto(repository.save(orderEntity)));
-        return Either.left(new OrderResponseError("User not found", LocalDateTime.now()));
+    public ResponseOrderDto save(SaveOrderDto saveOrderDto) {
+        OrderEntity orderEntity = OrderMapper.toEntity(saveOrderDto);
+        return OrderMapper.toResponseOrderDto(repository.save(orderEntity));
     }
 
     @Override
-    public List<ResponseOrderDto> findAllOrders() {
+    public List<ResponseOrderDto> findAll() {
         return repository.findAll()
                 .stream()
-                .map(OrderEntity::toResponseOrderDto)
+                .map(OrderMapper::toResponseOrderDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Either<OrderResponseError, ResponseOrderDto> findOrderById(Long id) {
-        return repository.findById(id)
-                .map(OrderEntity::toResponseOrderDto)
-                .map((Function<ResponseOrderDto, Either<OrderResponseError, ResponseOrderDto>>)
-                        Either::right)
-                .orElseGet(() -> Either.left(new OrderResponseError("Order not found", LocalDateTime.now())));
+    public Option<ResponseOrderDto> findById(Long id) {
+        return Option.ofOptional(repository.findById(id).map(OrderMapper::toResponseOrderDto));
     }
 
+    @Override
+    public Option<BigDecimal> getTotalPrice(Long orderId) {
+        return Option.ofOptional(repository.findById(orderId)
+                .map(OrderEntity::getTotalPrice));
+    }
+
+    @Override
+    public Option<Long> updateTotalPrice(Long id, BigDecimal totalPrice) {
+        Optional<OrderEntity> optionalOrderEntity = repository.findById(id);
+        optionalOrderEntity.ifPresent(order -> order.setTotalPrice(totalPrice));
+        return Option.ofOptional(optionalOrderEntity.map(OrderEntity::getId));
+
+    }
 }

@@ -1,12 +1,9 @@
 package pl.equipment.store.infrastructure.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.mapstruct.Mapper;
-import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
-import pl.equipment.store.domain.user.dto.SaveUserDto;
-import pl.equipment.store.domain.user.dto.UserResponseDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -15,6 +12,8 @@ import java.time.LocalDateTime;
 @Table(name = "account")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity {
 
     @Id
@@ -24,23 +23,5 @@ public class UserEntity {
     private String username;
     private String password;
     private LocalDateTime creationDate;
-
-
-    private static final EntityMapper entityMapper = Mappers.getMapper(EntityMapper.class);
-
-    static UserEntity toUserEntity(SaveUserDto saveUserDto) {
-        return entityMapper.toUserEntity(saveUserDto);
-    }
-
-    static UserResponseDto toUserIdentificationDto(UserEntity userEntity) {
-        return entityMapper.toUserIdentificationDto(userEntity);
-    }
-
-    @Mapper(unmappedTargetPolicy = ReportingPolicy.ERROR)
-    interface EntityMapper {
-        UserResponseDto toUserIdentificationDto(UserEntity userEntity);
-
-        UserEntity toUserEntity(SaveUserDto saveUserDto);
-    }
 
 }

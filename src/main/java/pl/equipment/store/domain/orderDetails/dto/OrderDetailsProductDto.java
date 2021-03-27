@@ -10,4 +10,12 @@ import java.math.BigDecimal;
 public class OrderDetailsProductDto {
     private final BigDecimal unitPrice;
     private final int unitsInStock;
+
+    public boolean isAvailable(int quantity) {
+        return unitsInStock >= quantity;
+    }
+
+    public BigDecimal calculateTotalOrderPrice(int quantity) {
+        return unitPrice.multiply(BigDecimal.valueOf(quantity));
+    }
 }

@@ -6,7 +6,7 @@ import pl.equipment.store.domain.user.dto.UserResponseDto;
 import java.util.List;
 
 public interface UserRepository {
-    UserResponseDto saveUser(SaveUserDto saveUserDto);
+    UserResponseDto save(SaveUserDto saveUserDto);
 
     List<UserResponseDto> findAll();
 }

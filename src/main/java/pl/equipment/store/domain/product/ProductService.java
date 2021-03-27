@@ -4,17 +4,19 @@ import lombok.RequiredArgsConstructor;
 import pl.equipment.store.domain.product.dto.CreateProductDto;
 import pl.equipment.store.domain.product.dto.ProductResponseDto;
 import pl.equipment.store.domain.product.port.in.ProductRepository;
-import pl.equipment.store.domain.product.port.out.ProductCommand;
 
+import java.util.List;
 
 @RequiredArgsConstructor
-class ProductCommandFacade implements ProductCommand {
+class ProductService {
 
     private final ProductRepository productRepository;
 
-    @Override
-    public ProductResponseDto createProduct(CreateProductDto createProductDto) {
+    public ProductResponseDto save(CreateProductDto createProductDto) {
         return productRepository.save(Product.create(createProductDto));
     }
 
+    public List<ProductResponseDto> findAll() {
+        return productRepository.findProducts();
+    }
 }

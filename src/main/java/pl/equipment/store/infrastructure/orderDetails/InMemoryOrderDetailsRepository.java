@@ -1,36 +1,30 @@
 package pl.equipment.store.infrastructure.orderDetails;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import pl.equipment.store.domain.orderDetails.dto.OrderDetailsResponseDto;
 import pl.equipment.store.domain.orderDetails.dto.SaveOrderDetailsDto;
 import pl.equipment.store.domain.orderDetails.port.in.OrderDetailsRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
-@Component
-class OrderDetailsAdapter implements OrderDetailsRepository {
+public class InMemoryOrderDetailsRepository implements OrderDetailsRepository {
 
-    private final OrderDetailsSpringRepository repository;
+    ConcurrentHashMap<Long, OrderDetailsEntity> hashMap = new ConcurrentHashMap<>();
 
     @Override
-    @Transactional
     public OrderDetailsResponseDto save(SaveOrderDetailsDto saveOrderDetailsDto) {
-
-        OrderDetailsEntity entity = repository.save(OrderDetailsMapper.toOrderDetailsEntity(saveOrderDetailsDto));
+        OrderDetailsEntity entity = OrderDetailsMapper.toOrderDetailsEntity(saveOrderDetailsDto);
+        hashMap.put(new Random().nextLong(), entity);
         return OrderDetailsMapper.toOrderDetailsResponseDto(entity);
     }
 
     @Override
     public List<OrderDetailsResponseDto> findAll() {
-        return repository.findAll()
+        return hashMap.values()
                 .stream()
                 .map(OrderDetailsMapper::toOrderDetailsResponseDto)
                 .collect(Collectors.toList());
     }
-
-
 }

@@ -1,17 +1,15 @@
 package pl.equipment.store.domain.order.port.in;
 
-import io.vavr.control.Either;
-import pl.equipment.store.domain.order.dto.OrderResponseError;
+import io.vavr.control.Option;
 import pl.equipment.store.domain.order.dto.ResponseOrderDto;
 import pl.equipment.store.domain.order.dto.SaveOrderDto;
 
 import java.util.List;
 
 public interface OrderRepository {
-    Either<OrderResponseError, ResponseOrderDto> saveOrder(SaveOrderDto saveOrderDto);
+    ResponseOrderDto save(SaveOrderDto saveOrderDto);
 
-    List<ResponseOrderDto> findAllOrders();
+    List<ResponseOrderDto> findAll();
 
-    Either<OrderResponseError, ResponseOrderDto> findOrderById(Long id);
-
+    Option<ResponseOrderDto> findById(Long id);
 }

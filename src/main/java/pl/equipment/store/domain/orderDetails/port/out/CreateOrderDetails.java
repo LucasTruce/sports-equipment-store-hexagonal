@@ -7,6 +7,6 @@ import pl.equipment.store.domain.orderDetails.dto.OrderDetailsResponseDto;
 import pl.equipment.store.domain.orderDetails.dto.OrderDetailsResponseError;
 
 
-public interface OrderDetailsCommand {
-    Either<OrderDetailsResponseError, OrderDetailsResponseDto> createOrderDetails(CreateOrderDetailsDto createOrderDetailsDto);
+public interface CreateOrderDetails {
+    Either<OrderDetailsResponseError, OrderDetailsResponseDto> create(CreateOrderDetailsDto createOrderDetailsDto);
 }
