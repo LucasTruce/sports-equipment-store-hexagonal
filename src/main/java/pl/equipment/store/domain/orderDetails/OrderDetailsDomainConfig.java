@@ -10,9 +10,9 @@ import pl.equipment.store.domain.orderDetails.port.in.ProductDatabase;
 class OrderDetailsDomainConfig {
 
     @Bean
-    OrderDetailsFacade orderDetailsCommandFacade(OrderDetailsRepository repository,
-                                                 ProductDatabase productRepository,
-                                                 OrderDatabase orderRepository) {
+    OrderDetailsFacade orderDetailsFacade(OrderDetailsRepository repository,
+                                          ProductDatabase productRepository,
+                                          OrderDatabase orderRepository) {
         OrderDetailsService service = new OrderDetailsService(repository, productRepository, orderRepository);
         return new OrderDetailsFacade(service);
     }

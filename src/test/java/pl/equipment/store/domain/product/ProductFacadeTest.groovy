@@ -8,7 +8,7 @@ import spock.lang.Specification
 
 class ProductFacadeTest extends Specification {
     ProductRepository repository = new InMemoryProductRepository()
-    ProductFacade facade = new ProductFacade(new ProductService(repository))
+    ProductFacade facade = new ProductDomainConfig().productFacade(repository)
 
     CreateProductDto createProductDto = new CreateProductDto("test", "test", BigDecimal.valueOf(20), 10)
     CreateProductDto createProductDto2 = new CreateProductDto("test2", "test2", BigDecimal.valueOf(10), 5)

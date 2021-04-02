@@ -8,7 +8,7 @@ import pl.equipment.store.domain.product.port.in.ProductRepository;
 class ProductDomainConfig {
 
     @Bean
-    ProductFacade productCommandFacade(ProductRepository productRepository) {
+    ProductFacade productFacade(ProductRepository productRepository) {
         ProductService productService = new ProductService(productRepository);
         return new ProductFacade(productService);
     }

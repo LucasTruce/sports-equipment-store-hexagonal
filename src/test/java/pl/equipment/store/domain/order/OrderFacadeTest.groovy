@@ -16,8 +16,7 @@ import java.time.LocalDateTime
 class OrderFacadeTest extends Specification {
     OrderRepository orderRepository = new InMemoryOrderRepository()
     UserDatabase userDatabase = new InMemoryUserRepository()
-
-    OrderFacade orderFacade = new OrderFacade(new OrderService(orderRepository, userDatabase))
+    OrderFacade orderFacade = new OrderDomainConfig().orderFacade(orderRepository, userDatabase)
 
     SaveUserDto userDto = new SaveUserDto(1L, "test", "test", LocalDateTime.now())
 

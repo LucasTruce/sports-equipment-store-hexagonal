@@ -18,9 +18,7 @@ class OrderDetailsFacadeTest extends Specification {
     OrderDetailsRepository repository = new InMemoryOrderDetailsRepository()
     OrderDatabase orderRepository = new InMemoryOrderRepository()
     ProductDatabase productRepository = new InMemoryProductRepository()
-
-    OrderDetailsService service = new OrderDetailsService(repository, productRepository, orderRepository)
-    OrderDetailsFacade facade = new OrderDetailsFacade(service)
+    OrderDetailsFacade facade = new OrderDetailsDomainConfig().orderDetailsFacade(repository, productRepository, orderRepository)
 
     SaveOrderDto saveOrderDto = new SaveOrderDto(1L, "NEW_ORDER", BigDecimal.valueOf(0), 1L)
     SaveProductDto saveProductDto = new SaveProductDto(1L, "test", "test", BigDecimal.valueOf(20), 10, "", true)
@@ -57,8 +55,6 @@ class OrderDetailsFacadeTest extends Specification {
         then:
         !list.isEmpty()
     }
-
-
 
 
     def "should get error when product not exists"() {

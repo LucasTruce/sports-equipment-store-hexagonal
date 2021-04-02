@@ -9,7 +9,7 @@ import pl.equipment.store.domain.order.port.in.UserDatabase;
 class OrderDomainConfig {
 
     @Bean
-    OrderFacade orderCommandFacade(OrderRepository orderRepository, UserDatabase userDatabase) {
+    OrderFacade orderFacade(OrderRepository orderRepository, UserDatabase userDatabase) {
         OrderService orderService = new OrderService(orderRepository, userDatabase);
         return new OrderFacade(orderService);
     }

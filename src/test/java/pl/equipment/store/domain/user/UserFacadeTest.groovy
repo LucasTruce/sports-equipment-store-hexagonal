@@ -6,8 +6,7 @@ import pl.equipment.store.infrastructure.user.InMemoryUserRepository
 import spock.lang.Specification
 
 class UserFacadeTest extends Specification {
-    UserService userService = new UserService(new InMemoryUserRepository())
-    UserFacade facade = new UserFacade(userService)
+    UserFacade facade = new UserDomainConfig().userFacade(new InMemoryUserRepository())
     CreateUserDto createUserDto = new CreateUserDto("test", "test")
 
     def "should find all users"() {
