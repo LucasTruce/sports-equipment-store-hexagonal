@@ -14,28 +14,35 @@ import java.util.stream.Collectors;
 public class InMemoryProductRepository implements ProductRepository, ProductDatabase {
 
     ConcurrentHashMap<Long, ProductEntity> hashMap = new ConcurrentHashMap<>();
-
+    Long i = 1L;
 
     @Override
     public ProductResponseDto save(SaveProductDto saveProductDto) {
         ProductEntity entity = ProductMapper.toEntity(saveProductDto);
-        hashMap.put(entity.getId(), entity);
+        entity.setId(i);
+        hashMap.put(i++, entity);
         return ProductMapper.toResponseDto(entity);
     }
 
     @Override
-    public List<ProductResponseDto> findProducts() {
-        return hashMap.values().stream().map(ProductMapper::toResponseDto).collect(Collectors.toList());
+    public List<ProductResponseDto> findAll() {
+        return hashMap.values()
+                .stream()
+                .map(ProductMapper::toResponseDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Option<OrderDetailsProductDto> getPriceAndUnitsInStock(Long productId) {
-        return Option.of(ProductMapper.toProductDto(hashMap.get(productId)));
+        return Option.of(hashMap.get(productId))
+                .map(ProductMapper::toProductDto);
     }
 
     @Override
     public Option<Long> updateUnitsInStock(Long id, int unitsInStock) {
-        return Option.of(hashMap.get(id).getId());
+        return Option.of(hashMap.get(id))
+                .peek(product -> product.setUnitsInStock(unitsInStock))
+                .map(ProductEntity::getId);
     }
 
 }

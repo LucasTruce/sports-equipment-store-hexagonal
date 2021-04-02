@@ -1,6 +1,5 @@
 package pl.equipment.store.domain.user;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import pl.equipment.store.domain.user.dto.CreateUserDto;
 import pl.equipment.store.domain.user.dto.UserResponseDto;
@@ -9,7 +8,7 @@ import pl.equipment.store.domain.user.port.out.FindUser;
 
 import java.util.List;
 
-@Getter
+
 @RequiredArgsConstructor
 class UserFacade implements CreateUser, FindUser {
 

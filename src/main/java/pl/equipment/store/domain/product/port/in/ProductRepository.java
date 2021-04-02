@@ -8,5 +8,5 @@ import java.util.List;
 public interface ProductRepository {
     ProductResponseDto save(SaveProductDto saveProductDto);
 
-    List<ProductResponseDto> findProducts();
+    List<ProductResponseDto> findAll();
 }

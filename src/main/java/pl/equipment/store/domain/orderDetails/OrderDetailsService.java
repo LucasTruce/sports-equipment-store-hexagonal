@@ -19,11 +19,11 @@ class OrderDetailsService {
     private final ProductDatabase productRepository;
     private final OrderDatabase orderRepository;
 
-    Either<OrderDetailsResponseError, OrderDetailsResponseDto> createOrderDetails(CreateOrderDetailsDto createOrderDetailsDto) {
+    Either<OrderDetailsResponseError, OrderDetailsResponseDto> create(CreateOrderDetailsDto createOrderDetailsDto) {
 
         final OrderDetailsProductDto foundProduct = productRepository.getPriceAndUnitsInStock(createOrderDetailsDto.getProductId()).getOrNull();
         final int quantity = createOrderDetailsDto.getQuantity();
-        
+
         return productRepository.getPriceAndUnitsInStock(createOrderDetailsDto.getProductId())
                 .toEither(() -> new OrderDetailsResponseError("Product not found!"))
                 .map(product -> checkIfProductIsInStockAndGetUnits(quantity, product))
@@ -34,11 +34,11 @@ class OrderDetailsService {
                 .flatMap(option -> option
                         .map(totalPrice -> totalPrice.add(foundProduct.calculateTotalOrderPrice(quantity)))
                         .flatMap(totalPrice -> orderRepository.updateTotalPrice(createOrderDetailsDto.getOrderId(), totalPrice))
-                        .toEither(() ->  new OrderDetailsResponseError("Order not found!")))
-                .map(s -> repository.save(OrderDetails.create(createOrderDetailsDto)));
+                        .toEither(() -> new OrderDetailsResponseError("Order not found!")))
+                .map(s -> repository.save(OrderDetails.create(createOrderDetailsDto).toSaveOrderDetailsDto()));
     }
 
-    public List<OrderDetailsResponseDto> findAllOrderDetails() {
+    public List<OrderDetailsResponseDto> findAll() {
         return repository.findAll();
     }
 

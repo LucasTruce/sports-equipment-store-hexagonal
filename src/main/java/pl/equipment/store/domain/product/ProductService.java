@@ -13,10 +13,10 @@ class ProductService {
     private final ProductRepository productRepository;
 
     public ProductResponseDto save(CreateProductDto createProductDto) {
-        return productRepository.save(Product.create(createProductDto));
+        return productRepository.save(Product.create(createProductDto).toSaveProductDto());
     }
 
     public List<ProductResponseDto> findAll() {
-        return productRepository.findProducts();
+        return productRepository.findAll();
     }
 }

@@ -17,11 +17,11 @@ class OrderDetailsFacade implements CreateOrderDetails, FindOrderDetails {
 
     @Override
     public Either<OrderDetailsResponseError, OrderDetailsResponseDto> create(CreateOrderDetailsDto createOrderDetailsDto) {
-        return service.createOrderDetails(createOrderDetailsDto);
+        return service.create(createOrderDetailsDto);
     }
 
     @Override
     public List<OrderDetailsResponseDto> findAll() {
-        return service.findAllOrderDetails();
+        return service.findAll();
     }
 }

@@ -12,11 +12,11 @@ class UserFacadeTest extends Specification {
 
     def "should find all users"() {
         setup:
-            facade.create(createUserDto)
+        facade.create(createUserDto)
         when:
-            List<UserResponseDto> users = facade.findAll()
+        List<UserResponseDto> users = facade.findAll()
         then:
-            !users.isEmpty()
+        !users.isEmpty()
     }
 
     def "should create user"() {

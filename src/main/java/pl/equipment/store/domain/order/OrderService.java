@@ -17,7 +17,7 @@ class OrderService {
 
     public Either<OrderResponseError, ResponseOrderDto> save(Long userId) {
         if (userDatabase.existsById(userId))
-            return Either.right(orderRepository.save(Order.create(userId)));
+            return Either.right(orderRepository.save(Order.create(userId).toSaveOrderDto()));
         return Either.left(new OrderResponseError("User not found!"));
     }
 

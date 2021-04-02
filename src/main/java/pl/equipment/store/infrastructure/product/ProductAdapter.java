@@ -25,7 +25,7 @@ class ProductAdapter implements ProductRepository, ProductDatabase {
     }
 
     @Override
-    public List<ProductResponseDto> findProducts() {
+    public List<ProductResponseDto> findAll() {
         return productSpringRepository.findAll()
                 .stream()
                 .map(ProductMapper::toResponseDto)

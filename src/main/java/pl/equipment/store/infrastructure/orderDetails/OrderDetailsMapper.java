@@ -7,14 +7,14 @@ import pl.equipment.store.infrastructure.product.ProductEntity;
 import pl.equipment.store.infrastructure.user.UserEntity;
 
 class OrderDetailsMapper {
-    static OrderDetailsResponseDto toOrderDetailsResponseDto(OrderDetailsEntity orderDetailsEntity) {
+    public static OrderDetailsResponseDto toOrderDetailsResponseDto(OrderDetailsEntity orderDetailsEntity) {
         return new OrderDetailsResponseDto(orderDetailsEntity.getId(),
                 orderDetailsEntity.getQuantity(),
                 orderDetailsEntity.getOrderEntity().getId(),
                 orderDetailsEntity.getProductEntity().getId());
     }
 
-    static OrderDetailsEntity toOrderDetailsEntity(SaveOrderDetailsDto saveOrderDetailsDto) {
+    public static OrderDetailsEntity toOrderDetailsEntity(SaveOrderDetailsDto saveOrderDetailsDto) {
         return new OrderDetailsEntity(saveOrderDetailsDto.getId(),
                 saveOrderDetailsDto.getQuantity(),
                 new OrderEntity(saveOrderDetailsDto.getOrderId(), null, null, new UserEntity()),

@@ -13,35 +13,38 @@ import java.util.stream.Collectors;
 
 public class InMemoryOrderRepository implements OrderRepository, OrderDatabase {
     ConcurrentHashMap<Long, OrderEntity> hashMap = new ConcurrentHashMap<>();
-
+    Long i = 1L;
 
     @Override
     public ResponseOrderDto save(SaveOrderDto saveOrderDto) {
         OrderEntity entity = OrderMapper.toEntity(saveOrderDto);
-        hashMap.put(entity.getId(), entity);
+        entity.setId(i);
+        hashMap.put(i++, entity);
         return OrderMapper.toResponseOrderDto(entity);
     }
 
     @Override
     public List<ResponseOrderDto> findAll() {
-        return hashMap.values().stream().map(OrderMapper::toResponseOrderDto).collect(Collectors.toList());
+        return hashMap.values()
+                .stream()
+                .map(OrderMapper::toResponseOrderDto).collect(Collectors.toList());
     }
 
     @Override
     public Option<ResponseOrderDto> findById(Long id) {
-        return Option.of(OrderMapper.toResponseOrderDto(hashMap.get(id)));
+        return Option.of(hashMap.get(id))
+                .map(OrderMapper::toResponseOrderDto);
     }
 
     @Override
     public Option<BigDecimal> getTotalPrice(Long orderId) {
-        return Option.of(hashMap.get(orderId).getTotalPrice());
+        return Option.of(hashMap.get(orderId))
+                .map(OrderEntity::getTotalPrice);
     }
 
     @Override
     public Option<Long> updateTotalPrice(Long id, BigDecimal totalPrice) {
-        OrderEntity entity = hashMap.get(id);
-        entity.setTotalPrice(totalPrice);
-        hashMap.put(id, entity);
+        hashMap.get(id).setTotalPrice(totalPrice);
         return Option.of(hashMap.get(id).getId());
     }
 }

@@ -22,16 +22,73 @@ class OrderDetailsFacadeTest extends Specification {
     OrderDetailsService service = new OrderDetailsService(repository, productRepository, orderRepository)
     OrderDetailsFacade facade = new OrderDetailsFacade(service)
 
-    def "should create order details when product is in stock"() {
+    SaveOrderDto saveOrderDto = new SaveOrderDto(1L, "NEW_ORDER", BigDecimal.valueOf(0), 1L)
+    SaveProductDto saveProductDto = new SaveProductDto(1L, "test", "test", BigDecimal.valueOf(20), 10, "", true)
+    SaveProductDto notInStockProductDto = new SaveProductDto(1L, "test", "test", BigDecimal.valueOf(20), 0, "", true)
+    CreateOrderDetailsDto createOrderDetailsDto = new CreateOrderDetailsDto(5, saveOrderDto.getId(), saveProductDto.getId())
+
+    def "should create order details when product is in stock and update product and order current values"() {
         setup:
-            orderRepository.save(new SaveOrderDto(1L, "NEW_ORDER", BigDecimal.valueOf(0), 1L))
-            productRepository.save(new SaveProductDto(1L, "test", "test", BigDecimal.valueOf(20), 10, "", true))
-            CreateOrderDetailsDto createOrderDetailsDto = new CreateOrderDetailsDto(5, 1L, 1L)
+        orderRepository.save(saveOrderDto)
+        productRepository.save(saveProductDto)
+
         when:
-            Either<OrderDetailsResponseError, OrderDetailsResponseDto> either = facade.create(createOrderDetailsDto)
+        Either<OrderDetailsResponseError, OrderDetailsResponseDto> either = facade.create(createOrderDetailsDto)
+        Integer unitsInStock = productRepository.getPriceAndUnitsInStock(saveProductDto.getId()).getOrNull().getUnitsInStock()
+        BigDecimal totalPrice = orderRepository.getTotalPrice(saveOrderDto.getId()).getOrNull()
 
         then:
-            either.get().getOrderId() == createOrderDetailsDto.getOrderId()
-            either.get().getProductId() == createOrderDetailsDto.getProductId()
+        either.get().getOrderId() == createOrderDetailsDto.getOrderId()
+        either.get().getProductId() == createOrderDetailsDto.getProductId()
+
+        unitsInStock == 5
+        totalPrice == BigDecimal.valueOf(100)
+    }
+
+    def "should find all order details"() {
+        setup:
+        orderRepository.save(saveOrderDto)
+        productRepository.save(saveProductDto)
+        facade.create(createOrderDetailsDto)
+
+        when:
+        List<OrderDetailsResponseDto> list = facade.findAll()
+
+        then:
+        !list.isEmpty()
+    }
+
+
+
+
+    def "should get error when product not exists"() {
+        when:
+        Either<OrderDetailsResponseError, OrderDetailsResponseDto> either = facade.create(createOrderDetailsDto)
+
+        then:
+        either.getLeft().getMessage() == "Product not found!"
+    }
+
+    def "should get error when order not exists"() {
+        setup:
+        productRepository.save(saveProductDto)
+
+        when:
+        Either<OrderDetailsResponseError, OrderDetailsResponseDto> either = facade.create(createOrderDetailsDto)
+
+        then:
+        either.getLeft().getMessage() == "Order not found!"
+    }
+
+    def "should get error when product is not in stock"() {
+        setup:
+        orderRepository.save(saveOrderDto)
+        productRepository.save(notInStockProductDto)
+
+        when:
+        Either<OrderDetailsResponseError, OrderDetailsResponseDto> either = facade.create(createOrderDetailsDto)
+
+        then:
+        either.getLeft().getMessage() == "Product not in stock!"
     }
 }

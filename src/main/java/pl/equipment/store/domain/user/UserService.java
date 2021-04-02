@@ -12,7 +12,7 @@ class UserService {
     private final UserRepository userRepository;
 
     public UserResponseDto save(CreateUserDto createUserDto) {
-        return userRepository.save(User.create(createUserDto));
+        return userRepository.save(User.create(createUserDto).toSaveUserDto());
     }
 
     public List<UserResponseDto> findAll() {

@@ -1,6 +1,5 @@
 package pl.equipment.store.domain.product;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import pl.equipment.store.domain.product.dto.CreateProductDto;
 import pl.equipment.store.domain.product.dto.SaveProductDto;
@@ -8,7 +7,6 @@ import pl.equipment.store.domain.product.dto.SaveProductDto;
 import java.math.BigDecimal;
 
 @RequiredArgsConstructor
-@Getter
 class Product {
     private final Long id;
     private final String name;
@@ -18,8 +16,8 @@ class Product {
     private final String imageUrl;
     private final boolean active;
 
-    static SaveProductDto create(CreateProductDto productDto) {
-        return new SaveProductDto(
+    static Product create(CreateProductDto productDto) {
+        return new Product(
                 null,
                 productDto.getName(),
                 productDto.getDescription(),
@@ -29,4 +27,7 @@ class Product {
                 true);
     }
 
+    SaveProductDto toSaveProductDto() {
+        return new SaveProductDto(id, name, description, unitPrice, unitsInStock, imageUrl, active);
+    }
 }
