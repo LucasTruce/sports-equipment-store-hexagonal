@@ -23,5 +23,7 @@ class UserFacadeTest extends Specification {
         UserResponseDto savedUser = facade.create(createUserDto)
         then:
         savedUser.getUsername() == createUserDto.getUsername()
+        savedUser.getCreationDate() != null
+        savedUser.getId() == 1L
     }
 }

@@ -3,6 +3,7 @@ package pl.equipment.store.domain.orderDetails
 import io.vavr.control.Either
 import pl.equipment.store.domain.order.dto.SaveOrderDto
 import pl.equipment.store.domain.orderDetails.dto.CreateOrderDetailsDto
+import pl.equipment.store.domain.orderDetails.dto.OrderDetailsProductDto
 import pl.equipment.store.domain.orderDetails.dto.OrderDetailsResponseDto
 import pl.equipment.store.domain.orderDetails.dto.OrderDetailsResponseError
 import pl.equipment.store.domain.orderDetails.port.in.OrderDatabase
@@ -32,14 +33,17 @@ class OrderDetailsFacadeTest extends Specification {
 
         when:
         Either<OrderDetailsResponseError, OrderDetailsResponseDto> either = facade.create(createOrderDetailsDto)
-        Integer unitsInStock = productRepository.getPriceAndUnitsInStock(saveProductDto.getId()).getOrNull().getUnitsInStock()
+        OrderDetailsProductDto orderDetailsProductDto = productRepository.getPriceAndUnitsInStock(saveProductDto.getId()).getOrNull()
         BigDecimal totalPrice = orderRepository.getTotalPrice(saveOrderDto.getId()).getOrNull()
 
         then:
         either.get().getOrderId() == createOrderDetailsDto.getOrderId()
         either.get().getProductId() == createOrderDetailsDto.getProductId()
+        either.get().getQuantity() == createOrderDetailsDto.getQuantity()
+        either.get().getId() == 1L
 
-        unitsInStock == 5
+        orderDetailsProductDto.getUnitsInStock() == 5
+        orderDetailsProductDto.getUnitPrice() == saveProductDto.getUnitPrice()
         totalPrice == BigDecimal.valueOf(100)
     }
 

@@ -6,7 +6,6 @@ plugins {
 
 group = 'equipment'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
 
 configurations {
     compileOnly {
@@ -31,10 +30,6 @@ dependencies {
     implementation 'org.postgresql:postgresql'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
-
-    // MapStruct
-    implementation 'org.mapstruct:mapstruct:1.4.1.Final'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
 
     // Swagger
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.4'

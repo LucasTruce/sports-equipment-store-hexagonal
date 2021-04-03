@@ -21,6 +21,8 @@ class ProductFacadeTest extends Specification {
         createdProduct.getDescription() == createProductDto.getDescription()
         createdProduct.getUnitPrice() == createProductDto.getUnitPrice()
         createdProduct.getUnitsInStock() == createProductDto.getUnitsInStock()
+        createdProduct.getImageUrl() == ""
+        createdProduct.getId() == 1L
     }
 
     def "should find all products"() {
