@@ -26,4 +26,5 @@ class UserController {
     List<UserResponseDto> getAllUsers() {
         return findUser.findAll();
     }
+
 }
