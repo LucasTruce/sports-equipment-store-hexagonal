@@ -45,6 +45,14 @@ class MediaAdapter implements MediaRepository {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ResponseMediaDto> findAllByProductId(Long productId) {
+        return mediaSpringRepository.findAllByProductEntityId(productId)
+                .stream()
+                .map(MediaMapper::toResponse)
+                .collect(Collectors.toList());
+    }
+
     ResponseMediaDto uploadSingleFile(byte[] fileByte) throws IOException {
         var map = cloudinary.uploader().upload(fileByte, ObjectUtils.emptyMap());
         return new ResponseMediaDto(map.get("public_id").toString(), map.get("url").toString());

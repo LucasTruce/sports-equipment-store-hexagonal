@@ -10,4 +10,6 @@ public interface MediaRepository {
     List<ResponseMediaDto> upload(List<MultipartFile> files);
 
     List<ResponseMediaDto> save(List<SaveMediaDto> medias);
+
+    List<ResponseMediaDto> findAllByProductId(Long productId);
 }

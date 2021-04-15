@@ -23,4 +23,8 @@ class MediaService {
         return mediaRepository.save(mediaList);
 
     }
+
+    List<ResponseMediaDto> findForProduct(Long productId) {
+        return mediaRepository.findAllByProductId(productId);
+    }
 }
