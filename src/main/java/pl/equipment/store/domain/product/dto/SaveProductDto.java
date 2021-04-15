@@ -13,6 +13,5 @@ public class SaveProductDto {
     private final String description;
     private final BigDecimal unitPrice;
     private final int unitsInStock;
-    private final String imageUrl;
     private final boolean active;
 }

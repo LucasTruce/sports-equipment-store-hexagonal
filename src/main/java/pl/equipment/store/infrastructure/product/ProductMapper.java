@@ -12,7 +12,6 @@ class ProductMapper {
                 saveProductDto.getDescription(),
                 saveProductDto.getUnitPrice(),
                 saveProductDto.getUnitsInStock(),
-                saveProductDto.getImageUrl(),
                 saveProductDto.isActive());
     }
 
@@ -21,8 +20,7 @@ class ProductMapper {
                 productEntity.getName(),
                 productEntity.getDescription(),
                 productEntity.getUnitPrice(),
-                productEntity.getUnitsInStock(),
-                productEntity.getImageUrl());
+                productEntity.getUnitsInStock());
     }
 
     static OrderDetailsProductDto toProductDto(ProductEntity productEntity) {

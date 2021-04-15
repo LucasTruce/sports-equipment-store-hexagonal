@@ -24,7 +24,6 @@ public class ProductEntity {
     private String description;
     private BigDecimal unitPrice;
     private int unitsInStock;
-    private String imageUrl;
     private boolean active;
 
 }
