@@ -18,6 +18,6 @@ class OrderDetailsMapper {
         return new OrderDetailsEntity(saveOrderDetailsDto.getId(),
                 saveOrderDetailsDto.getQuantity(),
                 new OrderEntity(saveOrderDetailsDto.getOrderId(), null, null, new UserEntity()),
-                new ProductEntity(saveOrderDetailsDto.getProductId(), null, null, null, 0, null, false));
+                new ProductEntity(saveOrderDetailsDto.getProductId(), null, null, null, 0, false));
     }
 }

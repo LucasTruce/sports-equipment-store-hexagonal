@@ -13,7 +13,6 @@ class Product {
     private final String description;
     private final BigDecimal unitPrice;
     private final int unitsInStock;
-    private final String imageUrl;
     private final boolean active;
 
     static Product create(CreateProductDto productDto) {
@@ -23,11 +22,10 @@ class Product {
                 productDto.getDescription(),
                 productDto.getUnitPrice(),
                 productDto.getUnitsInStock(),
-                "",
                 true);
     }
 
     SaveProductDto toSaveProductDto() {
-        return new SaveProductDto(id, name, description, unitPrice, unitsInStock, imageUrl, active);
+        return new SaveProductDto(id, name, description, unitPrice, unitsInStock, active);
     }
 }

@@ -22,8 +22,8 @@ class OrderDetailsFacadeTest extends Specification {
     OrderDetailsFacade facade = new OrderDetailsDomainConfig().orderDetailsFacade(repository, productRepository, orderRepository)
 
     SaveOrderDto saveOrderDto = new SaveOrderDto(1L, "NEW_ORDER", BigDecimal.valueOf(0), 1L)
-    SaveProductDto saveProductDto = new SaveProductDto(1L, "test", "test", BigDecimal.valueOf(20), 10, "", true)
-    SaveProductDto notInStockProductDto = new SaveProductDto(1L, "test", "test", BigDecimal.valueOf(20), 0, "", true)
+    SaveProductDto saveProductDto = new SaveProductDto(1L, "test", "test", BigDecimal.valueOf(20), 10, true)
+    SaveProductDto notInStockProductDto = new SaveProductDto(1L, "test", "test", BigDecimal.valueOf(20), 0, true)
     CreateOrderDetailsDto createOrderDetailsDto = new CreateOrderDetailsDto(5, saveOrderDto.getId(), saveProductDto.getId())
 
     def "should create order details when product is in stock and update product and order current values"() {
